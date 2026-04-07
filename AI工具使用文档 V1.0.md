@@ -467,9 +467,11 @@ Agent Skills 是 Anthropic 提出的**技能标准化协议**，通过结构化�
 **GitHub 项目地址：** <https://github.com/anthropics/skills/tree/main>
 
 **引文：**
+
 Skills are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks. Skills teach Claude how to complete specific tasks in a repeatable way, whether that's creating documents with your company's brand guidelines, analyzing data using your organization's specific workflows, or automating personal tasks.
 
 **机翻：**
+
 技能是包含指令、脚本和资源的文件夹，Claude 可动态加载以提升其在特定任务上的表现。技能以可重复的方式教导 Claude 如何完成具体任务，无论是按照您公司的品牌指南创建文档、运用您组织的特定工作流程分析数据，还是自动化处理个人任务。
 
 #### 5.3.2 Skill 项目的一个最小结构
