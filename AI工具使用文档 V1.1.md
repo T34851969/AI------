@@ -1,4 +1,4 @@
-# **AI工具使用文档 V1.0**
+# **AI工具使用文档 V1.1**
 
 ---
 
@@ -15,7 +15,7 @@
 
 ### 目录
 
-- [**AI工具使用文档 V1.0**](#ai工具使用文档-v10)
+- [**AI工具使用文档 V1.1**](#ai工具使用文档-v11)
   - [**0 前言，以及目录**](#0-前言以及目录)
     - [前言](#前言)
     - [目录](#目录)
@@ -62,11 +62,9 @@
       - [5.5.5 简要示例](#555-简要示例)
       - [5.5.6 Q\&A](#556-qa)
       - [5.5.7 建议](#557-建议)
-  - [**6 更多学习资源**](#6-更多学习资源)
-    - [6.1 基础入门](#61-基础入门)
-    - [6.2 提示词工程](#62-提示词工程)
-    - [6.3 高级开发（Tools / MCP / Agent / Skills / Harness）](#63-高级开发tools--mcp--agent--skills--harness)
-    - [6.4 学习建议](#64-学习建议)
+  - [**6. 一些高级 AI 应用介绍**](#6-一些高级-ai-应用介绍)
+  - [6.1 OpenClaw](#61-openclaw)
+    - [6.1.1 OpenClaw 简介](#611-openclaw-简介)
   - [**7 针对本科学生的优惠项目**](#7-针对本科学生的优惠项目)
     - [7.1 GitHub Copilot 学生优惠概览](#71-github-copilot-学生优惠概览)
     - [7.2 申请前准备](#72-申请前准备)
@@ -87,7 +85,12 @@
       - [7.5.2 常见问题解答](#752-常见问题解答)
       - [7.5.3 其他免费/低价学生工具](#753-其他免费低价学生工具)
     - [7.6 提醒](#76-提醒)
-  - [**8 补充**](#8-补充)
+  - [**8 更多学习资源**](#8-更多学习资源)
+    - [8.1 基础入门](#81-基础入门)
+    - [8.2 提示词工程](#82-提示词工程)
+    - [8.3 高级开发（Tools / MCP / Agent / Skills / Harness）](#83-高级开发tools--mcp--agent--skills--harness)
+    - [8.4 学习建议](#84-学习建议)
+  - [**9 补充**](#9-补充)
 
 ---
 <div style="page-break-before: always;"></div>
@@ -100,7 +103,7 @@
 | ------------------ | --------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | **大语言模型**     | Large Language Model(LLM)         | 通过在海量文本数据上训练，能够理解、生成和推理人类语言的深度学习模型      | ChatGPT、Claude、Gemini等对话AI的技术基础                                     |
 | **词元**           | Token                             | 大语言模型处理文本的基本单位，可以是单词、子词或标点                      | 模型输入/输出长度以Token计费或限制，比如“ChatGPT“≈2个Token                    |
-| **上下文**         | Context                           | ①对话上下文：历史记录保持连贯性；<br> ②提示上下文：引导模型生成预期回答        | Prompt工程的核心，影响输出质量的关键变量                                  |
+| **上下文**         | Context                           | ①对话上下文：历史记录保持连贯性；<br> ②提示上下文：引导模型生成预期回答   | Prompt工程的核心，影响输出质量的关键变量                                      |
 | **提示词**         | Prompt                            | 用户输入给AI模型的指令或问题，是交互的主要方式                            | 设计精良的提示词能极大提升输出质量和相关性                                    |
 | **工具调用**       | Function Calling / Tool Use(Tool) | 模型识别用户需求后，调用外部工具（搜索、计算器、API等）获取信息或执行操作 | 模型决策规划 + 应用安全执行；遵循ReAct循环；工具定义需清晰规范                |
 | **模型上下文协议** | Model Context Protocol(MCP)       | 标准化大模型与外部数据源、工具和服务连接的开放协议                        | 类比“AI的USB-C接口”；统一资源/工具/提示词接入；安全隔离凭证管理               |
@@ -185,7 +188,7 @@
 
 | 方向         | 内涵                                                                   | 应用                                                                                                                                                                                                                                                    |
 | :----------- | :--------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **交互模式** | 从**单轮指令**发展为**多模态、多轮次、工作流化**的复杂交互         | • **多模态自适应**：用户可混合使用文本、图像、文档、语音等多种输入方式，AI能理解并适应这种混合上下文<br>• **工作流编排**：用户可通过一个主提示，让AI自动分解任务、调用工具（如计算器、浏览器、代码解释器）、执行多步骤操作并返回最终结果                |
+| **交互模式** | 从**单轮指令**发展为**多模态、多轮次、工作流化**的复杂交互             | • **多模态自适应**：用户可混合使用文本、图像、文档、语音等多种输入方式，AI能理解并适应这种混合上下文<br>• **工作流编排**：用户可通过一个主提示，让AI自动分解任务、调用工具（如计算器、浏览器、代码解释器）、执行多步骤操作并返回最终结果                |
 | **技术升级** | 适应性的责任部分从**用户端**转移至**系统端**，通过更强大的底层技术实现 | • **Agent 技术**：AI能根据目标自主规划、执行并调整行动序列。例如，给定目标“分析公司Q1财报并总结风险”，AI可自动搜索最新财报、提取数据、进行计算分析、生成报告<br>• **工具调用**：AI能根据对话上下文，自适应地决定何时以及如何调用外部工具或API来完成任务 |
 | **个性化**   | AI能够学习并适应用户的长期偏好、写作风格和专业领域知识                 | • **自定义指令与长期记忆**：用户可设置全局偏好，AI在后续所有对话中持续适应<br>• **领域微调与RAG**：企业可将AI模型在内部数据上微调，或通过检索增强生成技术，使AI的回答自适应于特定的专业知识库                                                           |
 
@@ -281,15 +284,15 @@ AI不断发展，简单的问答已不能满足复杂的生产级需求，**智�
 
 **一些常见的框架：**
 
-| 框架 | 特点 / 适用场景 | 优点 | 缺点 |
-| :--- | :--- | :--- | :--- |
-| **LangGraph** | 追求流程可控性<br>基于状态机的可视化工作流，适合复杂任务（如审批流、多轮决策） | 执行路径精确可控，适合对流程有严格要求的复杂场景 | 学习曲线较陡峭 |
-| **AutoGen** (Microsoft) | 需要多角色协作<br>原生支持多智能体对话与角色分工，适合模拟团队协作（如研究员+程序员） | 配置灵活，在多智能体交互和角色分工方面能力强 | 需要一定的工程基础 |
-| **CrewAI** | 快速搭建业务流水线<br>以“角色+任务+流程”为核心抽象，适合内容创作、数据分析等标准化场景 | 语法简洁，设计直观，上手门槛中等 | 功能侧重在标准化的协作流水线上 |
-| **LangChain** | 原型验证或教学实验<br>生态最成熟、工具集成最丰富，适合快速验证想法和学习 | 社区资源多，组件和集成极其丰富，学习资料充足 | 生产环境需注意性能优化，抽象层级较高 |
-| **LlamaIndex** | 专注知识检索增强 (RAG)<br>专精于RAG能力，适合构建文档问答、知识库助手 | 在数据连接、检索和上下文构建方面非常专精，常与LangChain互补 | 核心聚焦在RAG相关任务上 |
-| **OpenAI Swarm** | 轻量级快速验证<br>极简的多智能体路由框架，适合快速测试协作逻辑 | 代码量少，能极速构建小型多角色应用，依赖极简 | 功能相对基础，适合小型或验证性项目 |
-| **OpenAI Agents** | 集成 OpenAI API<br>无需额外框架，通过原生API构建智能体 | 依赖极简，完全控制，与OpenAI生态无缝集成 | 所有复杂工作流（如工具调用、记忆、路由）均需自行搭建 |
+| 框架                    | 特点 / 适用场景                                                                        | 优点                                                        | 缺点                                                 |
+| :---------------------- | :------------------------------------------------------------------------------------- | :---------------------------------------------------------- | :--------------------------------------------------- |
+| **LangGraph**           | 追求流程可控性<br>基于状态机的可视化工作流，适合复杂任务（如审批流、多轮决策）         | 执行路径精确可控，适合对流程有严格要求的复杂场景            | 学习曲线较陡峭                                       |
+| **AutoGen** (Microsoft) | 需要多角色协作<br>原生支持多智能体对话与角色分工，适合模拟团队协作（如研究员+程序员）  | 配置灵活，在多智能体交互和角色分工方面能力强                | 需要一定的工程基础                                   |
+| **CrewAI**              | 快速搭建业务流水线<br>以“角色+任务+流程”为核心抽象，适合内容创作、数据分析等标准化场景 | 语法简洁，设计直观，上手门槛中等                            | 功能侧重在标准化的协作流水线上                       |
+| **LangChain**           | 原型验证或教学实验<br>生态最成熟、工具集成最丰富，适合快速验证想法和学习               | 社区资源多，组件和集成极其丰富，学习资料充足                | 生产环境需注意性能优化，抽象层级较高                 |
+| **LlamaIndex**          | 专注知识检索增强 (RAG)<br>专精于RAG能力，适合构建文档问答、知识库助手                  | 在数据连接、检索和上下文构建方面非常专精，常与LangChain互补 | 核心聚焦在RAG相关任务上                              |
+| **OpenAI Swarm**        | 轻量级快速验证<br>极简的多智能体路由框架，适合快速测试协作逻辑                         | 代码量少，能极速构建小型多角色应用，依赖极简                | 功能相对基础，适合小型或验证性项目                   |
+| **OpenAI Agents**       | 集成 OpenAI API<br>无需额外框架，通过原生API构建智能体                                 | 依赖极简，完全控制，与OpenAI生态无缝集成                    | 所有复杂工作流（如工具调用、记忆、路由）均需自行搭建 |
 
 **建议**：初学者可从 **CrewAI** 或 **LangChain** 入手，掌握核心概念；有明确业务场景时，优先选择领域专精框架。
 
@@ -607,12 +610,12 @@ If your agent is failing, optimizing the model is often the wrong move. Fix the 
 
 #### 5.4.4 设计原则
 
-| 原则               | 核心思想                                           | 实践要点                                                                    |
-| ------------------ | -------------------------------------------------- | --------------------------------------------------------------------------- |
+| 原则               | 核心思想                                           | 实践要点                                                                  |
+| ------------------ | -------------------------------------------------- | ------------------------------------------------------------------------- |
 | **最小可行复杂性** | 找到最简单的解决方案，仅在必要时增加组件           | 随模型升级（如Sonnet 4.5→Opus 4.6）定期精简框架，移除已不再必需的编排逻辑 |
-| **可执行的文档**   | 文档不是给人看的百科全书，而是给智能体用的"活指令" | 使用`AGENTS.md`作为内容目录，指向结构化知识库；验收标准必须可自动化验证     |
-| **约束即加速器**   | 严格的架构边界反而提升智能体效率                   | 强制执行分层依赖、代码规范、数据边界校验；约束一旦编码，可立即全局复用      |
-| **持续清理机制**   | 技术债务要像高息贷款一样"小额持续偿还"             | 建立后台智能体定期扫描代码库，自动发起重构PR；避免问题累积成大危机          |
+| **可执行的文档**   | 文档不是给人看的百科全书，而是给智能体用的"活指令" | 使用`AGENTS.md`作为内容目录，指向结构化知识库；验收标准必须可自动化验证   |
+| **约束即加速器**   | 严格的架构边界反而提升智能体效率                   | 强制执行分层依赖、代码规范、数据边界校验；约束一旦编码，可立即全局复用    |
+| **持续清理机制**   | 技术债务要像高息贷款一样"小额持续偿还"             | 建立后台智能体定期扫描代码库，自动发起重构PR；避免问题累积成大危机        |
 
 #### 5.4.5 使用时机
 
@@ -702,44 +705,40 @@ If your agent is failing, optimizing the model is often the wrong move. Fix the 
 ---
 <div style="page-break-before: always;"></div>
 
-## **6 更多学习资源**
+## **6. 一些高级 AI 应用介绍**
 
-### 6.1 基础入门
+上一章节讲述的概念是不少 AI 应用的框架，这一章节我们考察一些集成好从而可以直接使用的 AI 应用。
 
-| 资源                                  | 类型           | 链接                                                                                                                                                               |
-| ------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Code Academy - Intro to ChatGPT**   | 交互式课程     | [codecademy.com/learn/intro-to-chatgpt](https://www.codecademy.com/learn/intro-to-chatgpt)                                                                         |
-| **LabLab.AI - OpenAI ChatGPT**        | 分步指南/案例  | [lablab.ai/tech/openai/chatgpt](https://lablab.ai/tech/openai/chatgpt)                                                                                             |
-| **freeCodeCamp - Prompt Engineering** | 提示词分类教程 | [freecodecamp.org/news/how-to-communicate-with-ai-tools-prompt-engineering](https://www.freecodecamp.org/news/how-to-communicate-with-ai-tools-prompt-engineering) |
+## 6.1 OpenClaw
 
-### 6.2 提示词工程
+**OpenClaw** 大约是在今年三月份突然流行的。在此期间，网络上出现了不少广告，诸如“上门安装小龙虾，50一次”，比比皆是。而在网信办、工信部、国家互联网应急中心等机构发出安全警告之后，又涌现出许多“付费卸载小龙虾”的广告。这不应该是一种潮流，因为所有的安装、使用、卸载以及合规性、安全性检查等事项，均在 <https://docs.openclaw.ai/zh-CN> 上详尽地提供。作为 AI 应用的使用者（尤其是 Agent 类，它可以访问你的敏感本地数据），拥有一些基本的、关于 OpenClaw 所涉及的计算机组成、计算机网络组成知识对高效、安全地使用这类应用至关重要。因此，本节努力将对 OpenClaw 的技术架构进行通俗讲解，以使读者了解必要的信息。
 
-| 资源                                 | 说明                       | 链接                                                                                                                 |
-| ------------------------------------ | -------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| **GitHub - Awesome ChatGPT Prompts** | 社区维护的高质量提示词集合 | [github.com/f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts)                                 |
-| **ChatGPT Prompts for Data Science** | 数据科学专用提示词         | [github.com/travistangvh/ChatGPT-Data-Science-Prompts](https://github.com/travistangvh/ChatGPT-Data-Science-Prompts) |
+### 6.1.1 OpenClaw 简介
 
-### 6.3 高级开发（Tools / MCP / Agent / Skills / Harness）
+根据官网的描述：
 
-| 资源                            | 类型                    | 链接                                                                                                                                               |
-| ------------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **MCP官方文档**                 | 协议规范 + 示例代码     | [modelcontextprotocol.io](https://modelcontextprotocol.io)                                                                                         |
-| **LangChain Documentation**     | Agent开发权威教程       | [python.langchain.com](https://python.langchain.com)                                                                                               |
-| **Anthropic Skills Guide**      | Agent Skill设计最佳实践 | [docs.anthropic.com/en/docs/build-with-claude/agent-skills](https://docs.anthropic.com/en/docs/build-with-claude/agent-skills)                     |
-| **Awesome MCP Servers**         | 开源MCP服务器集合       | [github.com/punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers)                                                         |
-| **Jimmy Song - AI应用开发框架** | 中文框架选型指南        | [jimmysong.io/zh/book/ai-native-whitepaper/03-development-frameworks](https://jimmysong.io/zh/book/ai-native-whitepaper/03-development-frameworks) |
-| **Microsoft AutoGen Docs**      | 多智能体协作框架        | [microsoft.github.io/autogen](https://microsoft.github.io/autogen/stable/)                                                                         |
-| **Anthropic官方博文**           | Harness设计原理+案例    | [anthropic.com/engineering/harness-design](https://www.anthropic.com/engineering/harness-design)                                                   |
-| **Deepwiki**                    | 社区提供的丰富文档      | [deepwiki.com](https://deepwiki.com/)                                                                                                              |
+**适用于 Discord、Google Chat、iMessage、Matrix、Microsoft Teams、Signal、Slack、Telegram、WhatsApp、Zalo 等更多平台的任意操作系统 AI 智能体 Gateway 网关。**
+（当然，现在可以支持微信（WeChat）使用，详情请见 <https://openclawgithub.cc/guide/channels/wechat/> ）
 
-### 6.4 学习建议
+**它是什么：** 一个自托管**网关**
 
-**MCP、Agent、Skills 等领域发展迅速，建议关注下列高质量博客/社区获取最新进展：**
+普通的网关（就像你在之前的互联网生活见到的那样）负责下列事项：
 
-- Anthropic官方博客（MCP & Skills更新）
-- LangChain / LlamaIndex GitHub Releases
-- Hugging Face Agent相关Space
-- 国内：智源研究院、ModelScope社区的技术分享
+- 职责: 将不同通道的消息做协议适配与可靠转发，使后端服务能以统一接口处理消息。
+- 协议转换: 将不同聊天协议的消息格式标准化为后端可处理的 API 请求。
+- 路由转发: 基于静态路由表或规则（目标地址、渠道类型）进行转发。
+- 身份管理: 将跨渠道的外部标识（如 Telegram/Discord/微信）统一映射为内部用户 ID。
+- 接入控制与日志: 提供认证、限流、审计和基本监控，保障消息流与操作可追踪。
+
+但是，OpenClaw 着重下列要点：
+
+- 不同重心：在承担传统网关职责的同时，增加对智能体（Agent）编排、技能（Skill）加载与语义路由的支持，这是 LLM 能够介入传统互联网设施的关键途径。
+- 更智能的协议转换：不仅做格式转换，还把多渠道/多模态输入结构化为语义事件或意图表示，便于下游智能处理。
+- 灵活路由转发：意图以及语义驱动，能识别诸如“我要查天气”或者“我要通知xxx”这样的指令，请求分发给合适的 Tool 或 Skill 或者第三方 API。
+- 一致性身份管理：支持更丰富的会话上下文与跨渠道长期用户画像，便于保持一致的多轮交互体验。
+- 智能监控：集中管理凭证，提供细粒度审批、采样与审计机制，严格隔离敏感操作，满足合规需求。
+
+
 
 ---
 <div style="page-break-before: always;"></div>
@@ -930,7 +929,49 @@ def analyze_sales_data(df,
 ---
 <div style="page-break-before: always;"></div>
 
-## **8 补充**
+## **8 更多学习资源**
+
+### 8.1 基础入门
+
+| 资源                                  | 类型           | 链接                                                                                                                                                               |
+| ------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Code Academy - Intro to ChatGPT**   | 交互式课程     | [codecademy.com/learn/intro-to-chatgpt](https://www.codecademy.com/learn/intro-to-chatgpt)                                                                         |
+| **LabLab.AI - OpenAI ChatGPT**        | 分步指南/案例  | [lablab.ai/tech/openai/chatgpt](https://lablab.ai/tech/openai/chatgpt)                                                                                             |
+| **freeCodeCamp - Prompt Engineering** | 提示词分类教程 | [freecodecamp.org/news/how-to-communicate-with-ai-tools-prompt-engineering](https://www.freecodecamp.org/news/how-to-communicate-with-ai-tools-prompt-engineering) |
+
+### 8.2 提示词工程
+
+| 资源                                 | 说明                       | 链接                                                                                                                 |
+| ------------------------------------ | -------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **GitHub - Awesome ChatGPT Prompts** | 社区维护的高质量提示词集合 | [github.com/f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts)                                 |
+| **ChatGPT Prompts for Data Science** | 数据科学专用提示词         | [github.com/travistangvh/ChatGPT-Data-Science-Prompts](https://github.com/travistangvh/ChatGPT-Data-Science-Prompts) |
+
+### 8.3 高级开发（Tools / MCP / Agent / Skills / Harness）
+
+| 资源                            | 类型                    | 链接                                                                                                                                               |
+| ------------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **MCP官方文档**                 | 协议规范 + 示例代码     | [modelcontextprotocol.io](https://modelcontextprotocol.io)                                                                                         |
+| **LangChain Documentation**     | Agent开发权威教程       | [python.langchain.com](https://python.langchain.com)                                                                                               |
+| **Anthropic Skills Guide**      | Agent Skill设计最佳实践 | [docs.anthropic.com/en/docs/build-with-claude/agent-skills](https://docs.anthropic.com/en/docs/build-with-claude/agent-skills)                     |
+| **Awesome MCP Servers**         | 开源MCP服务器集合       | [github.com/punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers)                                                         |
+| **Jimmy Song - AI应用开发框架** | 中文框架选型指南        | [jimmysong.io/zh/book/ai-native-whitepaper/03-development-frameworks](https://jimmysong.io/zh/book/ai-native-whitepaper/03-development-frameworks) |
+| **Microsoft AutoGen Docs**      | 多智能体协作框架        | [microsoft.github.io/autogen](https://microsoft.github.io/autogen/stable/)                                                                         |
+| **Anthropic官方博文**           | Harness设计原理+案例    | [anthropic.com/engineering/harness-design](https://www.anthropic.com/engineering/harness-design)                                                   |
+| **Deepwiki**                    | 社区提供的丰富文档      | [deepwiki.com](https://deepwiki.com/)                                                                                                              |
+
+### 8.4 学习建议
+
+**MCP、Agent、Skills 等领域发展迅速，建议关注下列高质量博客/社区获取最新进展：**
+
+- Anthropic官方博客（MCP & Skills更新）
+- LangChain / LlamaIndex GitHub Releases
+- Hugging Face Agent相关Space
+- 国内：智源研究院、ModelScope社区的技术分享
+
+---
+<div style="page-break-before: always;"></div>
+
+## **9 补充**
 
  **一些资源**：
 
