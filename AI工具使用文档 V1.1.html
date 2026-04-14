@@ -366,6 +366,7 @@ code {
     });
   </script>
 <h1 id="ai工具使用文档-v11"><strong>AI工具使用文档 V1.1</strong></h1>
+<p>2026.04.14 深圳技术大学</p>
 <hr>
 <h2 id="0-前言以及目录"><strong>0 前言，以及目录</strong></h2>
 <h3 id="前言">前言</h3>
@@ -376,6 +377,7 @@ code {
 <li>本文偏向介绍大语言模型在编程等领域的应用，并在前四章介绍一些通用概念</li>
 <li>本文的代码仅供示意参考，若读者想上手进一步的编码工作，请点击文档提供的官方 Wiki 跳转链接获取更多信息</li>
 <li>本文写作时间紧促，可能存在事实疏忽、时效滞后或排版不当的问题，欢迎反馈</li>
+<li>目前为止，将该网站打印为 PDF 会出现奇怪的排版问题，暂时不能解决，若有本地查看需求，直接保存该 <code>.html</code> 文件并使用浏览器查看</li>
 </ul>
 <h3 id="目录">目录</h3>
 <ul>
@@ -394,7 +396,7 @@ code {
 </li>
 <li><a href="#2-%E5%8F%AF%E4%BE%9B%E5%8F%82%E8%80%83%E7%9A%84-ai-%E5%86%99%E4%BD%9C%E6%8C%87%E5%8D%97%E6%8E%A8%E8%8D%90"><strong>2 可供参考的 AI 写作指南推荐</strong></a>
 <ul>
-<li><a href="#21-open-ai--%E5%AD%A6%E7%94%9F%E4%BD%BF%E7%94%A8chatgpt%E5%86%99%E4%BD%9C%E6%8C%87%E5%8D%97">2.1 Open AI —— 《学生使用ChatGPT写作指南》</a></li>
+<li><a href="#21-openai--%E5%AD%A6%E7%94%9F%E4%BD%BF%E7%94%A8chatgpt%E5%86%99%E4%BD%9C%E6%8C%87%E5%8D%97">2.1 OpenAI —— 《学生使用ChatGPT写作指南》</a></li>
 <li><a href="#22-%E8%A5%BF%E5%8D%97%E4%BA%A4%E9%80%9A%E5%A4%A7%E5%AD%A6--%E7%94%9F%E6%88%90%E5%BC%8Fai%E5%86%99%E4%BD%9C%E6%8C%87%E5%8D%97v10">2.2 西南交通大学 —— 《生成式AI写作指南V1.0》</a></li>
 </ul>
 </li>
@@ -545,13 +547,13 @@ code {
 <td><strong>词元</strong></td>
 <td>Token</td>
 <td>大语言模型处理文本的基本单位，可以是单词、子词或标点</td>
-<td>模型输入/输出长度以Token计费或限制，比如“ChatGPT“≈2个Token</td>
+<td>模型输入/输出长度以 Token 计费或限制，比如“ChatGPT”≈2个 Token</td>
 </tr>
 <tr>
 <td><strong>上下文</strong></td>
 <td>Context</td>
 <td>①对话上下文：历史记录保持连贯性；<br> ②提示上下文：引导模型生成预期回答</td>
-<td>Prompt工程的核心，影响输出质量的关键变量</td>
+<td>Prompt 工程的核心，影响输出质量的关键变量</td>
 </tr>
 <tr>
 <td><strong>提示词</strong></td>
@@ -563,25 +565,25 @@ code {
 <td><strong>工具调用</strong></td>
 <td>Function Calling / Tool Use(Tool)</td>
 <td>模型识别用户需求后，调用外部工具（搜索、计算器、API等）获取信息或执行操作</td>
-<td>模型决策规划 + 应用安全执行；遵循ReAct循环；工具定义需清晰规范</td>
+<td>模型决策规划 + 应用安全执行；遵循 ReAct 循环；工具定义清晰规范</td>
 </tr>
 <tr>
 <td><strong>模型上下文协议</strong></td>
 <td>Model Context Protocol(MCP)</td>
 <td>标准化大模型与外部数据源、工具和服务连接的开放协议</td>
-<td>类比“AI的USB-C接口”；统一资源/工具/提示词接入；安全隔离凭证管理</td>
+<td>“AI 的 USB 接口”：统一资源/工具/提示词接入、安全隔离凭证管理</td>
 </tr>
 <tr>
 <td><strong>智能体</strong></td>
 <td>AI Agent(Agent)</td>
 <td>能理解复杂目标、制定计划、调用工具并自主执行任务的AI系统</td>
-<td>LLM + 规划 + 记忆 + 工具；具备自主性、反应性、主动性、社会性</td>
+<td>LLM + 规划 + 记忆 + 工具；自主性、反应性、主动性、社会性</td>
 </tr>
 <tr>
 <td><strong>智能体技能</strong></td>
 <td>Agent Skill(Skill)</td>
 <td>为智能体专门设计的、用于完成特定任务的专业化能力模块</td>
-<td>结构化文档+脚本+资源；单一职责+清晰触发+可运行示例</td>
+<td>结构化文档+脚本+资源；单一职责 + 清晰触发 + 可运行示例</td>
 </tr>
 <tr>
 <td><strong>约束框架</strong></td>
@@ -594,7 +596,7 @@ code {
 <hr>
 <div style="page-break-before: always;"></div>
 <h2 id="2-可供参考的-ai-写作指南推荐"><strong>2 可供参考的 AI 写作指南推荐</strong></h2>
-<h3 id="21-open-ai--学生使用chatgpt写作指南">2.1 Open AI —— 《学生使用ChatGPT写作指南》</h3>
+<h3 id="21-openai--学生使用chatgpt写作指南">2.1 OpenAI —— 《学生使用ChatGPT写作指南》</h3>
 <p>2024年11月14日，OpenAI发布了《学生使用ChatGPT写作指南》（A Student's Guide to Writing with ChatGPT）。该指南涵盖了12项实用技巧和方法，旨在指导学生正确运用ChatGPT，培养其严谨的思维方式及学术诚信意识。</p>
 <ol>
 <li><strong>引用格式优化</strong>：利用ChatGPT自动生成和调整引用格式，从而节省时间，使学生能更专注于内容的深度构建。</li>
@@ -958,23 +960,22 @@ result = Runner.run_sync(agent, <span class="hljs-string">&quot;Write a haiku ab
 <p><strong>MCP（Model Context Protocol）</strong> 是由 Anthropic 推出的<strong>开放标准协议</strong>，核心目标是解决大语言模型与外部数据源、工具之间的连接碎片化问题。可以这么理解MCP：考虑USB（通用串行总线），通过定义统一的通信规范，让不同模型、工具、数据源能够即插即用，无需为每对组合单独开发适配器。</p>
 <p>详细解释在官方Wiki：<a href="https://modelcontextprotocol.io/docs/getting-started/intro">https://modelcontextprotocol.io/docs/getting-started/intro</a></p>
 <p><strong>图示</strong>：</p>
-<pre class="hljs"><code><div>┌─────────────────┐
-│  主机(Host)      │ ← AI应用
-│  • 发起连接      │
-└────────┬────────┘
-         │ 1:1 连接
-┌────────▼────────┐
-│  客户端(Client)  │ ← 协议通信层
-│  • 管理会话      │
-│  • 权限控制      │
-└────────┬────────┘
-         │ 标准化协议
-┌────────▼────────┐
-│  服务器(Server)  │ ← 数据/工具提供方
-│  • 资源(Resources)│  如：数据库、文档
-│  • 工具(Tools)   │  如：API、计算器
-│  • 提示词(Prompts)│  专业任务模板
-└─────────────────┘
+<pre><code class="language-mermaid"><div class="mermaid">flowchart TD
+  subgraph H["主机 (Host) — AI应用"]
+    H1["• 发起连接"]
+  end
+  subgraph C["客户端 (Client) — 协议通信层"]
+    C1["• 管理会话"]
+    C2["• 权限控制"]
+  end
+  subgraph S["服务器 (Server) — 数据/工具提供方"]
+    S1["• 资源：数据库、文档"]
+    S2["• 工具：API、计算器"]
+    S3["• 提示词：专业任务模板"]
+  end
+
+  H1 -->|1:1 连接| C1
+  C1 -->|标准化协议| S1
 </div></code></pre>
 <ul>
 <li><strong>Host（主机）</strong>：AI 应用或客户端（如 Claude Desktop），负责发起连接并消费能力</li>
@@ -1200,33 +1201,90 @@ If your agent is failing, optimizing the model is often the wrong move. Fix the 
 <p><strong>如果你的智能体运行不佳，优化模型往往是错误的方向。首先，修复你的约束框架。</strong></p>
 <h4 id="543-架构示意">5.4.3 架构示意</h4>
 <p>（这一部分参考了 [2]）</p>
-<pre class="hljs"><code><div>┌─────────────────────────────────┐
-│  Spec Planner（计划）            │
-│  • 输入：1-4句用户模糊需求        │
-│  • 输出：一个 plan，补完用户描述  │
-│  • 关键：聚焦高层设计，避免过度细节│
-├─────────────────────────────────┤
-│  Coder Agent（生成器）           │
-│  • 输入：规格说明 + 冲刺契约      │
-│  • 输出：可运行代码+自测报告      │
-│  • 关键：按&quot;冲刺&quot;迭代，每步可回滚 │
-├─────────────────────────────────┤
-│  QA Agent（评估器）              │
-│  • 输入：生成产物+验收标准        │
-│  • 输出：结构化评分+改进建议      │
-└─────────────────────────────────┘
-         ↑ 反馈循环 ↑
-      评估 → 迭代 → 再评估 → ...
+<pre><code class="language-mermaid"><div class="mermaid">flowchart TD
+  classDef specStyle fill:#eef6ff,stroke:#2b6cb0,stroke-width:1px;
+  classDef coderStyle fill:#fff7e6,stroke:#d69e2e,stroke-width:1px;
+  classDef qaStyle fill:#f0fff4,stroke:#2f855a,stroke-width:1px;
+  classDef decisionStyle fill:#faf5ff,stroke:#805ad5,stroke-width:1px;
+
+  Start["流程开始"] --> SP1
+  
+  subgraph SP["Spec Planner (需求规划)"]
+    SP1["输入：用户需求"]
+    SP2["输入：迭代反馈"]
+    SP3["输出：详细规格说明"]
+  end
+  
+  SP3 -->|"计划文档"| CA1
+  
+  subgraph CA["Coder Agent (代码生成)"]
+    CA1["输入：规格说明"]
+    CA2["输出：可运行代码"]
+  end
+  
+  CA2 -->|"输出交付"| QA1
+  
+  subgraph QA["QA Agent (质量评估)"]
+    QA1["验证：代码质量"]
+    QA2["输出：评估报告"]
+  end
+
+  QA2 --> Decision{评估结果}
+  
+  Decision -->|"通过"| Success["交付完成"]
+  
+  subgraph FeedbackLoop["反馈循环"]
+    direction LR
+    Fix["Bug Fix"] --> CA1
+    Change["需求变更"] --> SP2
+  end
+  
+  Decision -->|"代码问题"| Fix
+  Decision -->|"设计问题"| Change
+
+  class SP1,SP2 specStyle
+  class CA1,CA2 coderStyle
+  class QA1,QA2 qaStyle
+  class Decision decisionStyle
+  class Success coderStyle
+  class Fix,Change qaStyle
 </div></code></pre>
-<p><strong>流程</strong>：</p>
-<ol>
-<li><strong>规划阶段</strong>：策划者将模糊需求扩展为包含功能列表、技术栈、验收标准的产品规格。</li>
-<li><strong>冲刺执行</strong>：生成器按&quot;一次一个功能&quot;原则开发，每完成一个冲刺即生成可测试产物。</li>
-<li><strong>质量验证</strong>：评估器通过自动化测试+人工体验式检查，对照契约逐项评分。</li>
-<li><strong>反馈迭代</strong>：未达标项返回生成器修复，达标项合并至主分支，直至整体完成。</li>
-</ol>
+<p><strong>流程说明</strong>：</p>
 <ul>
-<li>比如，在 [2] 中的那位工程师 Prithvi Rajasekaran 是这样实践的：
+<li>
+<p>规划阶段 — Spec Planner（计划）</p>
+<ul>
+<li>输入：1–4 句话，来自用户模棱两可（或者具有针对性）的描述</li>
+<li>输出：完整的产品规格，包含以下四点：功能清单、建议技术栈、验收标准与冲刺契约</li>
+<li>要点：主要聚焦于高层设计、基本约束条件</li>
+</ul>
+</li>
+<li>
+<p>冲刺执行 — Coder Agent（生成器）</p>
+<ul>
+<li>输入：来自 Spec Planner 的规格说明与当前冲刺契约</li>
+<li>输出：每轮冲刺完成后，交付的可运行产物（比如代码），以及对应的自测报告</li>
+<li>要点：遵循“每次一个功能”的冲刺原则，保证每步可回滚，可测试产物</li>
+</ul>
+</li>
+<li>
+<p>质量验证 — QA Agent（评估器）</p>
+<ul>
+<li>输入：生成器的产物与预定义的验收标准/契约</li>
+<li>输出：结构化评分、自动化测试结果与人工体验性检查报告，并给出改进建议或修复任务清单</li>
+<li>要点：结合自动化与人工验证，逐项对照契约评分，标记不达标项目</li>
+</ul>
+</li>
+<li>
+<p>反馈迭代（评估 → 迭代 → 再评估）</p>
+<ul>
+<li>未达标项：由 QA 生成问题清单返回给 Coder Agent 修复（包含优先级与复测条件）</li>
+<li>达标项：合并至主分支并更新规格/契约</li>
+<li>循环结束标准：不再产生任何新问题</li>
+</ul>
+</li>
+<li>
+<p>比如，在 [2] 中的那位工程师 Prithvi Rajasekaran 是这样实践的：</p>
 <ul>
 <li>生成器创建 HTML/CSS/JS</li>
 <li>评估器使用 Playwright MCP 真正地进行人类交互（截图、导航）而不只是审阅代码。并根据人类的标准，打分并提供详细批评</li>
@@ -1267,19 +1325,23 @@ If your agent is failing, optimizing the model is often the wrong move. Fix the 
 </tbody>
 </table>
 <h4 id="545-使用时机">5.4.5 使用时机</h4>
-<pre class="hljs"><code><div>依据任务复杂度分类
-│
-├─ 简单问答/单步操作 → 只需输入 Prompt
-│
-├─ 多步骤但可线性执行 → Agent + Tools + CO-STAR 提示
-│
-├─ 长时运行，并且有质量要求 → Harness 框架
-│  │
-│  ├─ 审美判断 → 强化评估器评分标准
-│  ├─ 鲁棒性 → 增加自动化测试、静态分析
-│  └─ 人机协同 → 在关键节点插入采样确认
-│
-└─ 大规模工程(10万+行代码) → Harness 只能作为辅助，必须依赖人工主动干预与协调
+<pre><code class="language-mermaid"><div class="mermaid">flowchart TD
+  A["依据任务复杂度分类"]
+
+  A --> B["简单问答/单步操作<br/>只需输入 Prompt"]
+  A --> C["多步骤但可线性执行<br/>Agent + Tools + CO-STAR 提示"]
+  A --> D["长时运行，并且有质量要求<br/>Harness 框架"]
+  A --> E["大规模工程 (10万&#43;行代码)<br/>Harness 只能作为辅助，必须依赖人工主动干预与协调"]
+
+  D --> D1["审美判断<br/>强化评估器评分标准"]
+  D --> D2["鲁棒性<br/>增加自动化测试、静态分析"]
+  D --> D3["人机协同<br/>在关键节点插入采样确认"]
+
+  classDef parent fill:#eef6ff,stroke:#2b6cb0;
+  classDef leaf fill:#f7f7f7,stroke:#888;
+  class A parent;
+  class B,C,D,E leaf;
+  class D1,D2,D3 leaf;
 </div></code></pre>
 <h4 id="546-claude-code-意外泄露源码">5.4.6 Claude Code 意外泄露源码</h4>
 <p>2026 年 3 月 31 日，Claude Code 新版本的 npm 包构建时意外包含了 source map 文件（cli.js.map），导致约 51.2 万行 TypeScript 源码被重建并公开。截至目前（2026.04.05），在 GitHub 上可能有数以百计的副本存在。这其中最有价值的部分是其 <strong>Harness</strong> 实践部分，即其约束框架的具体技术实现。此处我们不打算放置任何源代码以规避所有的合规性问题。但有兴趣的读者可以参考一个合规的开源项目（很大程度上参考了 Claude Code，使用 Python 与 Rust）：<a href="https://claw-code.codes">https://claw-code.codes</a></p>
@@ -1637,9 +1699,9 @@ If your agent is failing, optimizing the model is often the wrong move. Fix the 
 <h4 id="743-示例">7.4.3 示例</h4>
 <pre class="hljs"><code><div><span class="hljs-comment"># 场景：写一个数据处理函数</span>
 <span class="hljs-comment"># 你输入：</span>
-<span class="hljs-keyword">def</span> <span class="hljs-title function_">analyze_sales_data</span>(<span class="hljs-params">df, 
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">analyze_sales_data</span>()
 <span class="hljs-comment"># 默认按下tab，Copilot 自动补全：</span>
-<span class="hljs-keyword">def</span> analyze_sales_data(<span class="hljs-params">df, 
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">analyze_sales_data</span>(<span class="hljs-params">df, 
                        group_by: <span class="hljs-built_in">str</span> = <span class="hljs-string">&#x27;region&#x27;</span>, 
                        metrics: <span class="hljs-built_in">list</span> = [<span class="hljs-string">&#x27;revenue&#x27;</span>, <span class="hljs-string">&#x27;units&#x27;</span>]</span>) -&gt; pd.DataFrame:
     <span class="hljs-string">&quot;&quot;&quot;
@@ -1654,7 +1716,7 @@ If your agent is failing, optimizing the model is often the wrong move. Fix the 
         Aggregated DataFrame with summary statistics
     &quot;&quot;&quot;</span>
     <span class="hljs-comment"># Contiune...</span>
-</span></div></code></pre>
+</div></code></pre>
 <p><strong>进阶</strong>：在代码注释中用自然语言描述需求，Copilot 会根据上下文生成更精准的代码</p>
 <h3 id="75-福利续期与常见问题">7.5 福利续期与常见问题</h3>
 <h4 id="751-如何续期">7.5.1 如何续期？</h4>

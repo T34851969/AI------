@@ -1,5 +1,7 @@
 # **AI工具使用文档 V1.1**
 
+2026.04.14 深圳技术大学
+
 ---
 
 ## **0 前言，以及目录**
@@ -23,7 +25,7 @@
   - [**1 关键概念**](#1-关键概念)
     - [理解以下概念（至少前面几个）至关重要，无论你打算还是已经使用了AI工具](#理解以下概念至少前面几个至关重要无论你打算还是已经使用了ai工具)
   - [**2 可供参考的 AI 写作指南推荐**](#2-可供参考的-ai-写作指南推荐)
-    - [2.1 Open AI —— 《学生使用ChatGPT写作指南》](#21-open-ai--学生使用chatgpt写作指南)
+    - [2.1 OpenAI —— 《学生使用ChatGPT写作指南》](#21-openai--学生使用chatgpt写作指南)
     - [2.2 西南交通大学 —— 《生成式AI写作指南V1.0》](#22-西南交通大学--生成式ai写作指南v10)
   - [**3 生成式AI方法论略谈**](#3-生成式ai方法论略谈)
     - [3.1 开发有效的基于文本的提示 —— CLEAR 框架概览](#31-开发有效的基于文本的提示--clear-框架概览)
@@ -105,13 +107,13 @@
 | 概念               | 英文                              | 定义                                                                      | 要义                                                                          |
 | ------------------ | --------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | **大语言模型**     | Large Language Model(LLM)         | 通过在海量文本数据上训练，能够理解、生成和推理人类语言的深度学习模型      | ChatGPT、Claude、Gemini等对话AI的技术基础                                     |
-| **词元**           | Token                             | 大语言模型处理文本的基本单位，可以是单词、子词或标点                      | 模型输入/输出长度以Token计费或限制，比如“ChatGPT“≈2个Token                    |
-| **上下文**         | Context                           | ①对话上下文：历史记录保持连贯性；<br> ②提示上下文：引导模型生成预期回答   | Prompt工程的核心，影响输出质量的关键变量                                      |
+| **词元**           | Token                             | 大语言模型处理文本的基本单位，可以是单词、子词或标点                      | 模型输入/输出长度以 Token 计费或限制，比如“ChatGPT”≈2个 Token                 |
+| **上下文**         | Context                           | ①对话上下文：历史记录保持连贯性；<br> ②提示上下文：引导模型生成预期回答   | Prompt 工程的核心，影响输出质量的关键变量                                     |
 | **提示词**         | Prompt                            | 用户输入给AI模型的指令或问题，是交互的主要方式                            | 设计精良的提示词能极大提升输出质量和相关性                                    |
-| **工具调用**       | Function Calling / Tool Use(Tool) | 模型识别用户需求后，调用外部工具（搜索、计算器、API等）获取信息或执行操作 | 模型决策规划 + 应用安全执行；遵循ReAct循环；工具定义需清晰规范                |
-| **模型上下文协议** | Model Context Protocol(MCP)       | 标准化大模型与外部数据源、工具和服务连接的开放协议                        | 类比“AI的USB-C接口”；统一资源/工具/提示词接入；安全隔离凭证管理               |
-| **智能体**         | AI Agent(Agent)                   | 能理解复杂目标、制定计划、调用工具并自主执行任务的AI系统                  | LLM + 规划 + 记忆 + 工具；具备自主性、反应性、主动性、社会性                  |
-| **智能体技能**     | Agent Skill(Skill)                | 为智能体专门设计的、用于完成特定任务的专业化能力模块                      | 结构化文档+脚本+资源；单一职责+清晰触发+可运行示例                            |
+| **工具调用**       | Function Calling / Tool Use(Tool) | 模型识别用户需求后，调用外部工具（搜索、计算器、API等）获取信息或执行操作 | 模型决策规划 + 应用安全执行；遵循 ReAct 循环；工具定义清晰规范                |
+| **模型上下文协议** | Model Context Protocol(MCP)       | 标准化大模型与外部数据源、工具和服务连接的开放协议                        | “AI 的 USB 接口”：统一资源/工具/提示词接入、安全隔离凭证管理                  |
+| **智能体**         | AI Agent(Agent)                   | 能理解复杂目标、制定计划、调用工具并自主执行任务的AI系统                  | LLM + 规划 + 记忆 + 工具；自主性、反应性、主动性、社会性                      |
+| **智能体技能**     | Agent Skill(Skill)                | 为智能体专门设计的、用于完成特定任务的专业化能力模块                      | 结构化文档+脚本+资源；单一职责 + 清晰触发 + 可运行示例                        |
 | **约束框架**       | Harness                           | 在智能体系统中，负责评估、调度、编排和管理智能体技能使用的高级框架        | 与 Agent Skill 紧密协同，负责规划技能调用序列、评估技能效果、优化任务执行流程 |
 
 ---
@@ -119,7 +121,7 @@
 
 ## **2 可供参考的 AI 写作指南推荐**
 
-### 2.1 Open AI —— 《学生使用ChatGPT写作指南》
+### 2.1 OpenAI —— 《学生使用ChatGPT写作指南》
 
 2024年11月14日，OpenAI发布了《学生使用ChatGPT写作指南》（A Student's Guide to Writing with ChatGPT）。该指南涵盖了12项实用技巧和方法，旨在指导学生正确运用ChatGPT，培养其严谨的思维方式及学术诚信意识。
 
@@ -350,24 +352,23 @@ print(result.final_output)
 
 **图示**：
 
-```G
-┌─────────────────┐
-│  主机(Host)      │ ← AI应用
-│  • 发起连接      │
-└────────┬────────┘
-         │ 1:1 连接
-┌────────▼────────┐
-│  客户端(Client)  │ ← 协议通信层
-│  • 管理会话      │
-│  • 权限控制      │
-└────────┬────────┘
-         │ 标准化协议
-┌────────▼────────┐
-│  服务器(Server)  │ ← 数据/工具提供方
-│  • 资源(Resources)│  如：数据库、文档
-│  • 工具(Tools)   │  如：API、计算器
-│  • 提示词(Prompts)│  专业任务模板
-└─────────────────┘
+```mermaid
+flowchart TD
+  subgraph H["主机 (Host) — AI应用"]
+    H1["• 发起连接"]
+  end
+  subgraph C["客户端 (Client) — 协议通信层"]
+    C1["• 管理会话"]
+    C2["• 权限控制"]
+  end
+  subgraph S["服务器 (Server) — 数据/工具提供方"]
+    S1["• 资源：数据库、文档"]
+    S2["• 工具：API、计算器"]
+    S3["• 提示词：专业任务模板"]
+  end
+
+  H1 -->|1:1 连接| C1
+  C1 -->|标准化协议| S1
 ```
 
 - **Host（主机）**：AI 应用或客户端（如 Claude Desktop），负责发起连接并消费能力
@@ -594,32 +595,77 @@ If your agent is failing, optimizing the model is often the wrong move. Fix the 
 
 （这一部分参考了 [2]）
 
-```G
-┌─────────────────────────────────┐
-│  Spec Planner（计划）            │
-│  • 输入：1-4句用户模糊需求        │
-│  • 输出：一个 plan，补完用户描述  │
-│  • 关键：聚焦高层设计，避免过度细节│
-├─────────────────────────────────┤
-│  Coder Agent（生成器）           │
-│  • 输入：规格说明 + 冲刺契约      │
-│  • 输出：可运行代码+自测报告      │
-│  • 关键：按"冲刺"迭代，每步可回滚 │
-├─────────────────────────────────┤
-│  QA Agent（评估器）              │
-│  • 输入：生成产物+验收标准        │
-│  • 输出：结构化评分+改进建议      │
-└─────────────────────────────────┘
-         ↑ 反馈循环 ↑
-      评估 → 迭代 → 再评估 → ...
+```mermaid
+flowchart TD
+  classDef specStyle fill:#eef6ff,stroke:#2b6cb0,stroke-width:1px;
+  classDef coderStyle fill:#fff7e6,stroke:#d69e2e,stroke-width:1px;
+  classDef qaStyle fill:#f0fff4,stroke:#2f855a,stroke-width:1px;
+  classDef decisionStyle fill:#faf5ff,stroke:#805ad5,stroke-width:1px;
+
+  Start["流程开始"] --> SP1
+  
+  subgraph SP["Spec Planner (需求规划)"]
+    SP1["输入：用户需求"]
+    SP2["输入：迭代反馈"]
+    SP3["输出：详细规格说明"]
+  end
+  
+  SP3 -->|"计划文档"| CA1
+  
+  subgraph CA["Coder Agent (代码生成)"]
+    CA1["输入：规格说明"]
+    CA2["输出：可运行代码"]
+  end
+  
+  CA2 -->|"输出交付"| QA1
+  
+  subgraph QA["QA Agent (质量评估)"]
+    QA1["验证：代码质量"]
+    QA2["输出：评估报告"]
+  end
+
+  QA2 --> Decision{评估结果}
+  
+  Decision -->|"通过"| Success["交付完成"]
+  
+  subgraph FeedbackLoop["反馈循环"]
+    direction LR
+    Fix["Bug Fix"] --> CA1
+    Change["需求变更"] --> SP2
+  end
+  
+  Decision -->|"代码问题"| Fix
+  Decision -->|"设计问题"| Change
+
+  class SP1,SP2 specStyle
+  class CA1,CA2 coderStyle
+  class QA1,QA2 qaStyle
+  class Decision decisionStyle
+  class Success coderStyle
+  class Fix,Change qaStyle
 ```
 
-**流程**：
+**流程说明**：
 
-1. **规划阶段**：策划者将模糊需求扩展为包含功能列表、技术栈、验收标准的产品规格。
-2. **冲刺执行**：生成器按"一次一个功能"原则开发，每完成一个冲刺即生成可测试产物。
-3. **质量验证**：评估器通过自动化测试+人工体验式检查，对照契约逐项评分。
-4. **反馈迭代**：未达标项返回生成器修复，达标项合并至主分支，直至整体完成。
+- 规划阶段 — Spec Planner（计划）
+  - 输入：1–4 句话，来自用户模棱两可（或者具有针对性）的描述
+  - 输出：完整的产品规格，包含以下四点：功能清单、建议技术栈、验收标准与冲刺契约
+  - 要点：主要聚焦于高层设计、基本约束条件
+  
+- 冲刺执行 — Coder Agent（生成器）
+  - 输入：来自 Spec Planner 的规格说明与当前冲刺契约
+  - 输出：每轮冲刺完成后，交付的可运行产物（比如代码），以及对应的自测报告
+  - 要点：遵循“每次一个功能”的冲刺原则，保证每步可回滚，可测试产物
+
+- 质量验证 — QA Agent（评估器）
+  - 输入：生成器的产物与预定义的验收标准/契约
+  - 输出：结构化评分、自动化测试结果与人工体验性检查报告，并给出改进建议或修复任务清单
+  - 要点：结合自动化与人工验证，逐项对照契约评分，标记不达标项目
+
+- 反馈迭代（评估 → 迭代 → 再评估）
+  - 未达标项：由 QA 生成问题清单返回给 Coder Agent 修复（包含优先级与复测条件）
+  - 达标项：合并至主分支并更新规格/契约
+  - 循环结束标准：不再产生任何新问题
 
 - 比如，在 [2] 中的那位工程师 Prithvi Rajasekaran 是这样实践的：
   - 生成器创建 HTML/CSS/JS
@@ -637,20 +683,24 @@ If your agent is failing, optimizing the model is often the wrong move. Fix the 
 
 #### 5.4.5 使用时机
 
-```Tree
-依据任务复杂度分类
-│
-├─ 简单问答/单步操作 → 只需输入 Prompt
-│
-├─ 多步骤但可线性执行 → Agent + Tools + CO-STAR 提示
-│
-├─ 长时运行，并且有质量要求 → Harness 框架
-│  │
-│  ├─ 审美判断 → 强化评估器评分标准
-│  ├─ 鲁棒性 → 增加自动化测试、静态分析
-│  └─ 人机协同 → 在关键节点插入采样确认
-│
-└─ 大规模工程(10万+行代码) → Harness 只能作为辅助，必须依赖人工主动干预与协调
+```mermaid
+flowchart TD
+  A["依据任务复杂度分类"]
+
+  A --> B["简单问答/单步操作<br/>只需输入 Prompt"]
+  A --> C["多步骤但可线性执行<br/>Agent + Tools + CO-STAR 提示"]
+  A --> D["长时运行，并且有质量要求<br/>Harness 框架"]
+  A --> E["大规模工程 (10万&#43;行代码)<br/>Harness 只能作为辅助，必须依赖人工主动干预与协调"]
+
+  D --> D1["审美判断<br/>强化评估器评分标准"]
+  D --> D2["鲁棒性<br/>增加自动化测试、静态分析"]
+  D --> D3["人机协同<br/>在关键节点插入采样确认"]
+
+  classDef parent fill:#eef6ff,stroke:#2b6cb0;
+  classDef leaf fill:#f7f7f7,stroke:#888;
+  class A parent;
+  class B,C,D,E leaf;
+  class D1,D2,D3 leaf;
 ```
 
 #### 5.4.6 Claude Code 意外泄露源码
@@ -917,7 +967,7 @@ If your agent is failing, optimizing the model is often the wrong move. Fix the 
 ```python
 # 场景：写一个数据处理函数
 # 你输入：
-def analyze_sales_data(df, 
+def analyze_sales_data()
 # 默认按下tab，Copilot 自动补全：
 def analyze_sales_data(df, 
                        group_by: str = 'region', 
