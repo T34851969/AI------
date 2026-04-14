@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI工具使用文档 V1.1</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file://E:\\AI导航栏工作区\\style.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="ai工具使用文档-v11"><strong>AI工具使用文档 V1.1</strong></h1>
+<hr>
+<h2 id="0-前言以及目录"><strong>0 前言，以及目录</strong></h2>
+<h3 id="前言">前言</h3>
+<ul>
+<li>本文希望介绍一些常见的、有关于生成式人工智能（AIGC）的概念，并粗略地介绍其在一些领域的应用。与此同时，本文提供了一些关于学生优惠领取的教程，帮助广大本科生充分利用自己的身份优势获取一些应得利益</li>
+<li>本文使用包括 Qwen 3.5、GPT-5 mini 在内的大语言模型进行辅助写作（包括信息搜集、代码示例等）与排版。所有内容都经过了人工校对，并努力遵循一些通用的 AI 辅助写作原则</li>
+<li>本文介绍的一些概念到目前（2026.04.07）依然不存在准确的官方译名，请以其英文为基准</li>
+<li>本文偏向介绍大语言模型在编程等领域的应用，并在前四章介绍一些通用概念</li>
+<li>本文的代码仅供示意参考，若读者想上手进一步的编码工作，请点击文档提供的官方 Wiki 跳转链接获取更多信息</li>
+<li>本文写作时间紧促，可能存在事实疏忽、时效滞后或排版不当的问题，欢迎反馈</li>
+</ul>
+<h3 id="目录">目录</h3>
+<ul>
+<li><a href="#ai%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3-v11"><strong>AI工具使用文档 V1.1</strong></a>
+<ul>
+<li><a href="#0-%E5%89%8D%E8%A8%80%E4%BB%A5%E5%8F%8A%E7%9B%AE%E5%BD%95"><strong>0 前言，以及目录</strong></a>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E7%9B%AE%E5%BD%95">目录</a></li>
+</ul>
+</li>
+<li><a href="#1-%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5"><strong>1 关键概念</strong></a>
+<ul>
+<li><a href="#%E7%90%86%E8%A7%A3%E4%BB%A5%E4%B8%8B%E6%A6%82%E5%BF%B5%E8%87%B3%E5%B0%91%E5%89%8D%E9%9D%A2%E5%87%A0%E4%B8%AA%E8%87%B3%E5%85%B3%E9%87%8D%E8%A6%81%E6%97%A0%E8%AE%BA%E4%BD%A0%E6%89%93%E7%AE%97%E8%BF%98%E6%98%AF%E5%B7%B2%E7%BB%8F%E4%BD%BF%E7%94%A8%E4%BA%86ai%E5%B7%A5%E5%85%B7">理解以下概念（至少前面几个）至关重要，无论你打算还是已经使用了AI工具</a></li>
+</ul>
+</li>
+<li><a href="#2-%E5%8F%AF%E4%BE%9B%E5%8F%82%E8%80%83%E7%9A%84-ai-%E5%86%99%E4%BD%9C%E6%8C%87%E5%8D%97%E6%8E%A8%E8%8D%90"><strong>2 可供参考的 AI 写作指南推荐</strong></a>
+<ul>
+<li><a href="#21-open-ai--%E5%AD%A6%E7%94%9F%E4%BD%BF%E7%94%A8chatgpt%E5%86%99%E4%BD%9C%E6%8C%87%E5%8D%97">2.1 Open AI —— 《学生使用ChatGPT写作指南》</a></li>
+<li><a href="#22-%E8%A5%BF%E5%8D%97%E4%BA%A4%E9%80%9A%E5%A4%A7%E5%AD%A6--%E7%94%9F%E6%88%90%E5%BC%8Fai%E5%86%99%E4%BD%9C%E6%8C%87%E5%8D%97v10">2.2 西南交通大学 —— 《生成式AI写作指南V1.0》</a></li>
+</ul>
+</li>
+<li><a href="#3-%E7%94%9F%E6%88%90%E5%BC%8Fai%E6%96%B9%E6%B3%95%E8%AE%BA%E7%95%A5%E8%B0%88"><strong>3 生成式AI方法论略谈</strong></a>
+<ul>
+<li><a href="#31-%E5%BC%80%E5%8F%91%E6%9C%89%E6%95%88%E7%9A%84%E5%9F%BA%E4%BA%8E%E6%96%87%E6%9C%AC%E7%9A%84%E6%8F%90%E7%A4%BA--clear-%E6%A1%86%E6%9E%B6%E6%A6%82%E8%A7%88">3.1 开发有效的基于文本的提示 —— CLEAR 框架概览</a></li>
+<li><a href="#32-%E5%BD%93%E4%BB%A3%E6%B5%81%E5%8F%98">3.2 当代流变</a>
+<ul>
+<li><a href="#321-adaptive-%E4%BB%8E%E4%BA%BA%E9%80%82%E5%BA%94ai%E5%88%B0ai%E9%80%82%E5%BA%94%E4%BA%BA">3.2.1 Adaptive ：从“人适应AI”到“AI适应人”</a></li>
+<li><a href="#322-reflective%E4%BB%8E%E4%BA%BA%E5%B7%A5%E8%AF%84%E4%BC%B0%E5%88%B0%E8%87%AA%E4%B8%BB%E5%AF%B9%E9%BD%90">3.2.2 Reflective：从“人工评估”到“自主对齐”</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#4-%E6%8F%90%E7%A4%BA%E5%B7%A5%E7%A8%8B"><strong>4 提示工程</strong></a>
+<ul>
+<li><a href="#41-%E6%8F%90%E7%A4%BA%E8%AF%8D%E4%B8%8E%E6%8F%90%E7%A4%BA%E5%B7%A5%E7%A8%8B">4.1 提示词与提示工程</a></li>
+<li><a href="#42-co-star%E6%A1%86%E6%9E%B6">4.2 CO-STAR框架</a></li>
+<li><a href="#43-%E6%8F%90%E7%A4%BA%E8%AF%8D%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7">4.3 提示词使用技巧</a></li>
+</ul>
+</li>
+<li><a href="#5-agentmcp-skill-%E4%B8%8E-harness"><strong>5 Agent、MCP、 Skill 与 Harness</strong></a>
+<ul>
+<li><a href="#51-agent%E6%99%BA%E8%83%BD%E4%BD%93">5.1 Agent（智能体）</a>
+<ul>
+<li><a href="#511-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3agent">5.1.1 如何理解Agent？</a></li>
+<li><a href="#512-agent-%E7%A4%BA%E4%BE%8B">5.1.2 Agent 示例</a></li>
+</ul>
+</li>
+<li><a href="#52-mcp%E6%A8%A1%E5%9E%8B%E4%B8%8A%E4%B8%8B%E6%96%87%E5%8D%8F%E8%AE%AE">5.2 MCP（模型上下文协议）</a>
+<ul>
+<li><a href="#521-%E4%BB%80%E4%B9%88%E6%98%AFmcp">5.2.1 什么是MCP？</a></li>
+<li><a href="#522-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-mcp">5.2.2 为什么需要 MCP？</a></li>
+<li><a href="#523-%E4%B8%80%E4%B8%AA%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2-mcp-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E7%A4%BA%E4%BE%8B">5.2.3 一个本地部署 MCP 服务器的示例</a></li>
+<li><a href="#524-%E8%A1%A5%E5%85%85">5.2.4 补充</a></li>
+</ul>
+</li>
+<li><a href="#53-agent-skill%E6%99%BA%E8%83%BD%E4%BD%93%E6%8A%80%E8%83%BD">5.3 Agent Skill（智能体技能）</a>
+<ul>
+<li><a href="#531-%E4%BB%80%E4%B9%88%E6%98%AFagent-skills">5.3.1 什么是Agent Skills？</a></li>
+<li><a href="#532-skill-%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%80%E4%B8%AA%E6%9C%80%E5%B0%8F%E7%BB%93%E6%9E%84">5.3.2 Skill 项目的一个最小结构</a></li>
+<li><a href="#533-skillmd-%E5%AD%97%E6%AE%B5%E7%A4%BA%E4%BE%8B">5.3.3 SKILL.md 字段示例</a></li>
+<li><a href="#534-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99">5.3.4 设计原则</a></li>
+</ul>
+</li>
+<li><a href="#54-harness-%E7%BA%A6%E6%9D%9F%E6%A1%86%E6%9E%B6">5.4 Harness （约束框架）</a>
+<ul>
+<li><a href="#541-%E4%BB%80%E4%B9%88%E6%98%AFharness">5.4.1 什么是Harness？</a></li>
+<li><a href="#542-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81harness">5.4.2 为什么需要Harness？</a></li>
+<li><a href="#543-%E6%9E%B6%E6%9E%84%E7%A4%BA%E6%84%8F">5.4.3 架构示意</a></li>
+<li><a href="#544-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99">5.4.4 设计原则</a></li>
+<li><a href="#545-%E4%BD%BF%E7%94%A8%E6%97%B6%E6%9C%BA">5.4.5 使用时机</a></li>
+<li><a href="#546-claude-code-%E6%84%8F%E5%A4%96%E6%B3%84%E9%9C%B2%E6%BA%90%E7%A0%81">5.4.6 Claude Code 意外泄露源码</a></li>
+</ul>
+</li>
+<li><a href="#55-%E5%9B%9B%E8%80%85%E5%8D%8F%E5%90%8C">5.5 四者协同</a>
+<ul>
+<li><a href="#551-%E4%BB%80%E4%B9%88%E5%9C%A8%E4%BD%95%E5%A4%84%E8%B4%9F%E8%B4%A3">5.5.1 什么在何处负责</a></li>
+<li><a href="#552-%E5%85%B8%E5%9E%8B%E6%95%B0%E6%8D%AE%E4%B8%8E%E8%B0%83%E7%94%A8%E6%B5%81">5.5.2 典型数据与调用流</a></li>
+<li><a href="#553-%E5%B8%B8%E8%A7%81%E5%8D%8F%E5%90%8C%E6%A8%A1%E5%BC%8F%E4%B8%8E%E5%9C%BA%E6%99%AF">5.5.3 常见协同模式与场景</a></li>
+<li><a href="#554-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">5.5.4 设计原则与最佳实践</a></li>
+<li><a href="#555-%E7%AE%80%E8%A6%81%E7%A4%BA%E4%BE%8B">5.5.5 简要示例</a></li>
+<li><a href="#556-qa">5.5.6 Q&amp;A</a></li>
+<li><a href="#557-%E5%BB%BA%E8%AE%AE">5.5.7 建议</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#6-%E4%B8%80%E4%BA%9B%E9%AB%98%E7%BA%A7-ai-%E5%BA%94%E7%94%A8%E7%AE%80%E4%BB%8B"><strong>6. 一些高级 AI 应用简介</strong></a>
+<ul>
+<li><a href="#61-openclaw">6.1 OpenClaw</a>
+<ul>
+<li><a href="#611-%E7%AE%80%E4%BB%8B">6.1.1 简介</a></li>
+<li><a href="#612-%E9%83%A8%E7%BD%B2%E4%BA%8B%E9%A1%B9">6.1.2 部署事项</a></li>
+<li><a href="#613-%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98">6.1.3 安全问题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#7-%E9%92%88%E5%AF%B9%E6%9C%AC%E7%A7%91%E5%AD%A6%E7%94%9F%E7%9A%84%E4%BC%98%E6%83%A0%E9%A1%B9%E7%9B%AE"><strong>7 针对本科学生的优惠项目</strong></a>
+<ul>
+<li><a href="#71-github-copilot-%E5%AD%A6%E7%94%9F%E4%BC%98%E6%83%A0%E6%A6%82%E8%A7%88">7.1 GitHub Copilot 学生优惠概览</a></li>
+<li><a href="#72-%E7%94%B3%E8%AF%B7%E5%89%8D%E5%87%86%E5%A4%87">7.2 申请前准备</a>
+<ul>
+<li><a href="#721-%E5%BF%85%E5%A4%87%E6%9D%90%E6%96%99">7.2.1 必备材料</a></li>
+<li><a href="#722-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">7.2.2 常见问题</a></li>
+</ul>
+</li>
+<li><a href="#73-%E7%94%B3%E8%AF%B7%E6%AD%A5%E9%AA%A4">7.3 申请步骤</a>
+<ul>
+<li><a href="#731-%E8%BF%9B%E5%85%A5%E7%94%B3%E8%AF%B7%E9%A1%B5%E9%9D%A2">7.3.1 进入申请页面</a></li>
+<li><a href="#732-%E5%90%AF%E5%8A%A8%E7%94%B3%E8%AF%B7%E6%B5%81%E7%A8%8B">7.3.2 启动申请流程</a></li>
+<li><a href="#733-%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E5%85%B3%E9%94%AE">7.3.3 身份验证（关键！）</a></li>
+<li><a href="#734-%E6%8F%90%E4%BA%A4%E4%B8%8E%E7%AD%89%E5%BE%85%E5%AE%A1%E6%A0%B8">7.3.4 提交与等待审核</a></li>
+<li><a href="#735-%E6%BF%80%E6%B4%BB%E7%A6%8F%E5%88%A9%E5%85%B3%E9%94%AE">7.3.5 激活福利（关键！）</a></li>
+</ul>
+</li>
+<li><a href="#74-vs-code-%E4%B8%AD%E9%85%8D%E7%BD%AE-github-copilot">7.4 VS Code 中配置 GitHub Copilot</a>
+<ul>
+<li><a href="#741-%E5%AE%89%E8%A3%85%E4%B8%8E%E6%8E%88%E6%9D%83">7.4.1 安装与授权</a></li>
+<li><a href="#742-%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E9%80%9F%E8%A7%88">7.4.2 核心功能速览</a></li>
+<li><a href="#743-%E7%A4%BA%E4%BE%8B">7.4.3 示例</a></li>
+</ul>
+</li>
+<li><a href="#75-%E7%A6%8F%E5%88%A9%E7%BB%AD%E6%9C%9F%E4%B8%8E%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">7.5 福利续期与常见问题</a>
+<ul>
+<li><a href="#751-%E5%A6%82%E4%BD%95%E7%BB%AD%E6%9C%9F">7.5.1 如何续期？</a></li>
+<li><a href="#752-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94">7.5.2 常见问题解答</a></li>
+<li><a href="#753-%E5%85%B6%E4%BB%96%E5%85%8D%E8%B4%B9%E4%BD%8E%E4%BB%B7%E5%AD%A6%E7%94%9F%E5%B7%A5%E5%85%B7">7.5.3 其他免费/低价学生工具</a></li>
+</ul>
+</li>
+<li><a href="#76-%E6%8F%90%E9%86%92">7.6 提醒</a></li>
+</ul>
+</li>
+<li><a href="#8-%E6%9B%B4%E5%A4%9A%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90"><strong>8 更多学习资源</strong></a>
+<ul>
+<li><a href="#81-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8">8.1 基础入门</a></li>
+<li><a href="#82-%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B">8.2 提示词工程</a></li>
+<li><a href="#83-%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91tools--mcp--agent--skills--harness">8.3 高级开发（Tools / MCP / Agent / Skills / Harness）</a></li>
+<li><a href="#84-%E5%AD%A6%E4%B9%A0%E5%BB%BA%E8%AE%AE">8.4 学习建议</a></li>
+</ul>
+</li>
+<li><a href="#9-%E8%A1%A5%E5%85%85"><strong>9 补充</strong></a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<div style="page-break-before: always;"></div>
+<h2 id="1-关键概念"><strong>1 关键概念</strong></h2>
+<h3 id="理解以下概念至少前面几个至关重要无论你打算还是已经使用了ai工具">理解以下概念（至少前面几个）至关重要，无论你打算还是已经使用了AI工具</h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>英文</th>
+<th>定义</th>
+<th>要义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>大语言模型</strong></td>
+<td>Large Language Model(LLM)</td>
+<td>通过在海量文本数据上训练，能够理解、生成和推理人类语言的深度学习模型</td>
+<td>ChatGPT、Claude、Gemini等对话AI的技术基础</td>
+</tr>
+<tr>
+<td><strong>词元</strong></td>
+<td>Token</td>
+<td>大语言模型处理文本的基本单位，可以是单词、子词或标点</td>
+<td>模型输入/输出长度以Token计费或限制，比如“ChatGPT“≈2个Token</td>
+</tr>
+<tr>
+<td><strong>上下文</strong></td>
+<td>Context</td>
+<td>①对话上下文：历史记录保持连贯性；<br> ②提示上下文：引导模型生成预期回答</td>
+<td>Prompt工程的核心，影响输出质量的关键变量</td>
+</tr>
+<tr>
+<td><strong>提示词</strong></td>
+<td>Prompt</td>
+<td>用户输入给AI模型的指令或问题，是交互的主要方式</td>
+<td>设计精良的提示词能极大提升输出质量和相关性</td>
+</tr>
+<tr>
+<td><strong>工具调用</strong></td>
+<td>Function Calling / Tool Use(Tool)</td>
+<td>模型识别用户需求后，调用外部工具（搜索、计算器、API等）获取信息或执行操作</td>
+<td>模型决策规划 + 应用安全执行；遵循ReAct循环；工具定义需清晰规范</td>
+</tr>
+<tr>
+<td><strong>模型上下文协议</strong></td>
+<td>Model Context Protocol(MCP)</td>
+<td>标准化大模型与外部数据源、工具和服务连接的开放协议</td>
+<td>类比“AI的USB-C接口”；统一资源/工具/提示词接入；安全隔离凭证管理</td>
+</tr>
+<tr>
+<td><strong>智能体</strong></td>
+<td>AI Agent(Agent)</td>
+<td>能理解复杂目标、制定计划、调用工具并自主执行任务的AI系统</td>
+<td>LLM + 规划 + 记忆 + 工具；具备自主性、反应性、主动性、社会性</td>
+</tr>
+<tr>
+<td><strong>智能体技能</strong></td>
+<td>Agent Skill(Skill)</td>
+<td>为智能体专门设计的、用于完成特定任务的专业化能力模块</td>
+<td>结构化文档+脚本+资源；单一职责+清晰触发+可运行示例</td>
+</tr>
+<tr>
+<td><strong>约束框架</strong></td>
+<td>Harness</td>
+<td>在智能体系统中，负责评估、调度、编排和管理智能体技能使用的高级框架</td>
+<td>与 Agent Skill 紧密协同，负责规划技能调用序列、评估技能效果、优化任务执行流程</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div style="page-break-before: always;"></div>
+<h2 id="2-可供参考的-ai-写作指南推荐"><strong>2 可供参考的 AI 写作指南推荐</strong></h2>
+<h3 id="21-open-ai--学生使用chatgpt写作指南">2.1 Open AI —— 《学生使用ChatGPT写作指南》</h3>
+<p>2024年11月14日，OpenAI发布了《学生使用ChatGPT写作指南》（A Student's Guide to Writing with ChatGPT）。该指南涵盖了12项实用技巧和方法，旨在指导学生正确运用ChatGPT，培养其严谨的思维方式及学术诚信意识。</p>
+<ol>
+<li><strong>引用格式优化</strong>：利用ChatGPT自动生成和调整引用格式，从而节省时间，使学生能更专注于内容的深度构建。</li>
+<li><strong>快速了解新领域</strong>：ChatGPT助力学生迅速掌握新领域的基础知识，为深入探究奠定基础。</li>
+<li><strong>资源推荐</strong>：ChatGPT可推荐相关学者、资源和关键词，引导学生研究方向，但需查阅原始文献以保障学术严谨性。</li>
+<li><strong>深化复杂概念理解</strong>：通过互动问答，帮助学生清晰掌握难点，促进对复杂理论的深度理解。</li>
+<li><strong>增强文章结构</strong>：针对论文结构提供改进建议，使内容逻辑更清晰，层次更分明。</li>
+<li><strong>倒写大纲检查</strong>：采用倒写大纲的方式检查文章结构和逻辑，确保各部分内容紧密衔接。</li>
+<li><strong>引导深入思考</strong>：通过互动对话启发学生思考，培养批判性思维，挖掘更深层次的见解。</li>
+<li><strong>论点优化</strong>：模拟反驳和论证强化，帮助学生识别论点中的薄弱环节，提升论述的说服力。</li>
+<li><strong>多角度审视</strong>：从不同历史或学术视角重新分析论点，拓展学生对主题的多维度理解。</li>
+<li><strong>写作持续改进</strong>：ChatGPT提供即时反馈，助力学生不断优化写作质量。</li>
+<li><strong>语音模式辅助阅读</strong>：在阅读过程中，利用高级语音模式即时解答问题，提升学生对复杂内容的理解和吸收。</li>
+<li><strong>技能提升和应用</strong>：帮助学生锻炼分析和写作技能，通过反复练习提升逻辑性和表达能力。</li>
+</ol>
+<p><strong>重要提醒</strong>：使用ChatGPT辅助写作，必须遵守学术规范，确保AI使用的合规性，规范引用并明确说明自身如何使用ChatGPT。善用AI工具，使其成为学习中的得力助手，而非替代独立思考的捷径。</p>
+<p><strong>链接</strong>：<a href="https://openai.com/chatgpt/use-cases/student-writing-guide/">https://openai.com/chatgpt/use-cases/student-writing-guide/</a></p>
+<h3 id="22-西南交通大学--生成式ai写作指南v10">2.2 西南交通大学 —— 《生成式AI写作指南V1.0》</h3>
+<p>《生成式AI写作指南V1.0》由西南交通大学多学科专家团队撰写，于2024年10月发布。该指南分三部分，旨在为高校及社会运用生成式AI写作提供参考和指导。以下是其内容的基本介绍：</p>
+<ol>
+<li><strong>基础理论</strong>：阐述生成式AI写作的特征、方法及常用工具，提出这是一种“人机协同的创作新模式”。</li>
+<li><strong>应用场景</strong>：详细介绍了在私人、公共、专业及教学性设计等不同场景中的AI写作应用与实践，并附案例。</li>
+<li><strong>风险和规范</strong>：分析了生成式AI写作的潜在风险（如内容准确性、数据偏见、削弱批判性思考等），并明确了AI工具的定位，提出了避免学术不端、正确标注AI成果等规范建议。</li>
+</ol>
+<p><strong>链接</strong>：<a href="https://www.cssn.cn/skgz/bwyc/202410/t20241012_5790396.shtml">https://www.cssn.cn/skgz/bwyc/202410/t20241012_5790396.shtml</a></p>
+<p><img src="image.png" alt="alt text"></p>
+<hr>
+<div style="page-break-before: always;"></div>
+<h2 id="3-生成式ai方法论略谈"><strong>3 生成式AI方法论略谈</strong></h2>
+<p>生成式人工智能工具通过海量数据进行训练，并基于这些数据创建模型。当你给一个人工智能工具提供提示时，它会使用数据模型生成响应。</p>
+<p>大部分生成式人工智能工具通过向模型发送文本形式的消息工作，这在所有网页端、应用内集成的 AI 工具通用。不少模型也支持向其传输文件，比如文本文件、携带文字的图片，通过一些内置工具转化为文字并像普通的文本模型那样运作。还有一些模型支持文字生成图片、视频、音频等，这些模型被称作多模态模型。</p>
+<h3 id="31-开发有效的基于文本的提示--clear-框架概览">3.1 开发有效的基于文本的提示 —— CLEAR 框架概览</h3>
+<p><strong>基本信息介绍：</strong></p>
+<ul>
+<li><strong>全名</strong>：The CLEAR Framework (CLEAR Path)</li>
+<li><strong>作者</strong>：Leo S. Lo（时任美国新墨西哥大学图书馆院长）</li>
+<li><strong>出处</strong>：<em>The Journal of Academic Librarianship</em> (学术图书馆员期刊)</li>
+<li><strong>发表时间</strong>：2023年 (第49卷第4期)</li>
+<li><strong>DOI</strong>：<code>10.1016/j.acalib.2023.102720</code></li>
+<li><strong>原文标题</strong>：<em>The CLEAR path: A framework for enhancing information literacy through prompt engineering</em></li>
+<li><strong>链接</strong>：<a href="https://www.sciencedirect.com/science/article/pii/S0099133323000599">https://www.sciencedirect.com/science/article/pii/S0099133323000599</a></li>
+</ul>
+<p>具体内容</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类别</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Concise 清晰</strong></td>
+<td style="text-align:left">要求具体；使用简单语言；优先考虑关键信息</td>
+<td style="text-align:left">&quot;列出工业革命期间最重要的三个社会因素。&quot;&quot;将文本翻译成法语。&quot;</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Logical 逻辑</strong></td>
+<td style="text-align:left">以逻辑顺序组织信息；建立上下文和关系；避免在单个提示中包含过多指示</td>
+<td style="text-align:left">&quot;解释量子力学……&quot;<br>&quot;这门物理学分支是否有任何基本原则或定律？&quot;</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Explicit 明确</strong></td>
+<td style="text-align:left">定义明确的指示；设定阅读水平和输出格式；为 ChatGPT 指派角色</td>
+<td style="text-align:left">&quot;以简单易懂的语言解释以下段落：'Lorem ipsum...'&quot;<br> &quot;假设你是一名本科科学学生，用简单的术语描述 Krebs 循环。&quot;</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Adaptive 适应</strong></td>
+<td style="text-align:left">保持灵活（重新措辞、重构）；尝试不同的方法；创意性地使用提示</td>
+<td style="text-align:left">&quot;实际上，这不是我想表达的意思。我指的是________。&quot;&quot;能否提供更多示例？&quot;</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Reflective 反思</strong></td>
+<td style="text-align:left">仔细评估 AI 的响应；识别可改进的领域（这需要时间）；<br>利用洞察进一步优化参与策略</td>
+<td style="text-align:left">信任但要验证，不要假设工具返回的信息都是准确的。可以考虑以下问题：我能否通过其他来源验证信息？生成的内容是否符合我对该主题已有的理解？</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-当代流变">3.2 当代流变</h3>
+<p>尽管这个框架发布距今已经三年，但是它依然活跃在各 AI 应用领域。并且在 Adaptive 以及 Reflective 这两个方面，发展出各具特色的应用方向。这些方向体现了人机交互中，“人走向AI” 到 “AI走向人” 的变化。</p>
+<h4 id="321-adaptive-从人适应ai到ai适应人">3.2.1 Adaptive ：从“人适应AI”到“AI适应人”</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方向</th>
+<th style="text-align:left">内涵</th>
+<th style="text-align:left">应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>交互模式</strong></td>
+<td style="text-align:left">从单轮指令发展为多模态、多轮次、工作流化的复杂交互</td>
+<td style="text-align:left">• <strong>多模态自适应</strong>：用户可混合使用文本、图像、文档、语音等多种输入方式，AI能理解并适应这种混合上下文<br>• <strong>工作流编排</strong>：用户可通过一个主提示，让AI自动分解任务、调用工具（如计算器、浏览器、代码解释器）、执行多步骤操作并返回最终结果</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>技术升级</strong></td>
+<td style="text-align:left">适应性的责任部分从用户端转移至系统端，通过更强大的底层技术实现</td>
+<td style="text-align:left">• <strong>Agent 技术</strong>：AI能根据目标自主规划、执行并调整行动序列。例如，给定目标“分析公司Q1财报并总结风险”，AI可自动搜索最新财报、提取数据、进行计算分析、生成报告<br>• <strong>工具调用</strong>：AI能根据对话上下文，自适应地决定何时以及如何调用外部工具或API来完成任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>个性化</strong></td>
+<td style="text-align:left">AI能够学习并适应用户的长期偏好、写作风格和专业领域知识</td>
+<td style="text-align:left">• <strong>自定义指令与长期记忆</strong>：用户可设置全局偏好，AI在后续所有对话中持续适应<br>• <strong>领域微调与RAG</strong>：企业可将AI模型在内部数据上微调，或通过检索增强生成技术，使AI的回答自适应于特定的专业知识库</td>
+</tr>
+</tbody>
+</table>
+<h4 id="322-reflective从人工评估到自主对齐">3.2.2 Reflective：从“人工评估”到“自主对齐”</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方向</th>
+<th style="text-align:left">内涵</th>
+<th style="text-align:left">应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>评估体系化</strong></td>
+<td style="text-align:left">对AI输出的反思不再仅依赖用户个人判断，而是发展出一套系统化的评估框架、基准和自动化工具</td>
+<td style="text-align:left">• <strong>红队测试与评估基准</strong>：研究人员和开发者使用标准化测试集（如MMLU、GPQA）和对抗性测试（红队攻击）精确评估模型的准确性、安全性、偏见等参数<br>• <strong>AI辅助评估</strong>：用另一个 AI 模型（评判器）评估生成质量、指令对齐度，实现大规模、自动化初步反思</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>对齐与安全内化</strong></td>
+<td style="text-align:left">反思的目标，从追求准确提高到 AI 对齐：，即安全、合规、符合<strong>公序良俗</strong></td>
+<td style="text-align:left">• <strong>安全层与内容过滤</strong>：在模型响应生成前后，自动进行安全检查，过滤有害、偏见或不合规内容<br>• <strong>宪法AI与RLHF</strong>：通过人类反馈强化学习等技术，将公序良俗内化到模型中，模型即可即时反思与对齐</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>可解释性与溯源</strong></td>
+<td style="text-align:left">不仅关注答案<strong>是什么</strong>，更关注<strong>为什么</strong>，要求 AI 提供推理过程和证据</td>
+<td style="text-align:left">• <strong>思维链</strong>：鼓励AI展示其推理步骤，使用户能跟踪并反思其逻辑<br>• <strong>溯源与引用</strong>：对于基于检索的回答，要求AI明确标注信息出处，方便用户回溯验证，这是“信任但验证”原则的技术实现</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div style="page-break-before: always;"></div>
+<h2 id="4-提示工程"><strong>4 提示工程</strong></h2>
+<h3 id="41-提示词与提示工程">4.1 提示词与提示工程</h3>
+<p><strong>提示词</strong>在AI领域中扮演着至关重要的角色，它指的是在AI模型执行任务时，为引导模型生成特定输出而提供的一段文字或数据，是用户与AI模型进行交互的一种方式。通过精心设计合理的提示词，用户可以更精准地控制AI模型的输出结果。简而言之，提示词就是用户与AI对话的文本，本质上是对AI提出的问题或指令。</p>
+<p><strong>提示工程</strong>（Prompt Engineering）则是指通过优化和设计提示词，以最大化AI输出的效果，从而更高效地利用大型语言模型（LLM）处理各类应用场景和研究领域的问题。这不仅仅是简单的提问，而是需要考虑如何分解问题、设置合适的上下文以及提供必要的细节背景等。其核心目标是找到最优的提示词，使AI能够最大限度地理解任务，并输出符合预期的高质量内容。换言之，学会设计出&quot;最聪明的提问&quot;，以便AI能够聪明地回应。</p>
+<p>随着通用大模型的日益成熟，有些时候不再需要严格遵循模板来构思提示词，AI工具已能够深入理解用户需求，并进行自主解析与细化。然而，深入理解提示词的核心逻辑依然至关重要。“提示词工程师”如此迅速的兴起与消亡提醒我们，“提示工程”已经从一种职业能力转变为专业素养 —— 就像外语之于专业/职业一样，并最终会向“通用素养”这个方向发展。</p>
+<h3 id="42-co-star框架">4.2 CO-STAR框架</h3>
+<p>&quot;CO-STAR 框架&quot; 是一套结构化提示词设计方法，核心作用是帮助用户向 AI 清晰传递需求，减少 AI 误解，生成更精准、高效的响应。</p>
+<p>其中一套解释，见链接：<a href="https://goaireels.com/blog/prompt-engineering-101-the-co-star-framework/">https://goaireels.com/blog/prompt-engineering-101-the-co-star-framework/</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模块</th>
+<th style="text-align:left">英文全称</th>
+<th style="text-align:left">AI 需要知道什么</th>
+<th style="text-align:left">示例</th>
+<th style="text-align:left">常见误区</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>C</strong></td>
+<td style="text-align:left">Context（上下文）</td>
+<td style="text-align:left">提供任务相关的背景信息，包括时间、场景、关键前提及约束条件，帮助 AI 准确理解需求所处的业务环境与逻辑起点</td>
+<td style="text-align:left">&quot;本人任职于某初创企业运营部门，推广产品为'便携折叠电煮锅'，核心定位为学生宿舍及租房场景，零售单价 199 元。市场竞品普遍强调'大容量'属性，本产品核心差异点为'折叠后体积仅 A4 纸大小'与'智能防干烧安全保护'&quot;</td>
+<td style="text-align:left">遗漏关键业务背景（如未说明目标群体为学生，导致 AI 生成面向商务人士的文案风格）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>O</strong></td>
+<td style="text-align:left">Objective（目标）</td>
+<td style="text-align:left">明确本次交互期望达成的具体业务目标或可衡量的效果，指导 AI 聚焦输出方向</td>
+<td style="text-align:left">&quot;文案核心目标：面向 18-25 岁学生及租房人群，突出'便携收纳'与'使用安全'两大卖点，提升产品在小红书平台的内容种草效率与转化潜力&quot;</td>
+<td style="text-align:left">目标表述模糊（如仅要求&quot;撰写文案&quot;，未明确&quot;提升种草转化率&quot;等可衡量指标）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>S</strong></td>
+<td style="text-align:left">Scope（范围）</td>
+<td style="text-align:left">界定任务执行的内容边界，明确包含项与排除项，避免 AI 生成无关或冗余信息</td>
+<td style="text-align:left">&quot;输出范围：1 篇主文案（字数控制在 300 字以内）+ 3 个小红书平台话题标签；排除项：产品技术参数（如额定功率）、促销活动详情、售后服务政策&quot;</td>
+<td style="text-align:left">范围界定不清（如未限定字数，导致输出内容超出平台发布规范或使用场景）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>T</strong></td>
+<td style="text-align:left">Task（任务）</td>
+<td style="text-align:left">将目标拆解为可执行、可验证的具体操作步骤，明确 AI 需完成的动作序列</td>
+<td style="text-align:left">&quot;执行步骤：1. 提炼 3 项核心卖点（便携性、安全性、性价比），每项附简要支撑理由；2. 采用场景化表达方式撰写主文案（例：'宿舍煮面无需等待，折叠收纳不占空间'）；3. 匹配 3 个高搜索量话题标签（如#学生党家电 #租房好物 #厨房神器）&quot;</td>
+<td style="text-align:left">任务指令笼统（如仅要求&quot;突出卖点&quot;，未指定&quot;场景化表达&quot;等具体执行标准）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>A</strong></td>
+<td style="text-align:left">Audience（受众）</td>
+<td style="text-align:left">定义内容接收对象的群体特征，包括年龄、身份、认知水平及语言偏好，指导内容调性与表达策略</td>
+<td style="text-align:left">&quot;目标受众为 18-25 岁在校学生及年轻租房群体，语言风格需贴近年轻化表达，适度使用网络流行语（如&quot;刚需&quot;&quot;提升幸福感&quot;），避免使用生硬的专业术语或企业级表述&quot;</td>
+<td style="text-align:left">忽视受众特征（如面向学生群体却采用企业采购场景的正式书面语，降低内容共鸣度）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>R</strong></td>
+<td style="text-align:left">Response Format（响应格式）</td>
+<td style="text-align:left">规定输出内容的结构化形式与呈现规范，便于后续直接使用或二次加工</td>
+<td style="text-align:left">&quot;输出规范：1. 核心卖点以&quot;卖点关键词 + 支撑理由&quot;的短句形式列出，共 3 项；2. 主文案独立成段，段落间逻辑连贯；3. 话题标签统一置于文末，格式为&quot;#标签内容&quot;，每项独占一行&quot;</td>
+<td style="text-align:left">未指定输出格式（如需结构化清单却获得大段连续文本，增加后期整理成本）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-提示词使用技巧">4.3 提示词使用技巧</h3>
+<p>在向AI提问前，可以通过下述技巧获得更符合要求的回答：</p>
+<ul>
+<li>
+<p><strong>提供富含细节的背景信息</strong><br>
+例：请帮我写一个在 24 世纪的银河系发生的科幻故事，主要角色是进取号的传奇舰长 Picard，他们正在调查罗慕伦中立区的时候意外找到三个来自古地球的冬眠者，而罗慕伦人意外地与他们接触...</p>
+</li>
+<li>
+<p><strong>明确任务和要求，避免模糊不清的提问</strong><br>
+例：帮我写一篇 300 字的智能手表产品简介，重点突出功能和使用场景，面向技术小白。</p>
+</li>
+<li>
+<p><strong>学会角色扮演</strong><br>
+例：假设你是一名初中老师，向一群从未接触过AI提示词的初中生们用通俗的语言、生动的实例解释AI提示词的基本概念。</p>
+</li>
+<li>
+<p><strong>分解复杂问题</strong></p>
+<ul>
+<li>问题拆分：将一个大问题分解成几个小问题或子任务，逐一解决</li>
+<li>明确步骤：对于每个子问题，明确需要解决的步骤或需要考虑的因素</li>
+<li>优先级排序：确定哪些方面最重要，哪些可以稍后处理</li>
+</ul>
+</li>
+<li>
+<p><strong>要求逐步解释，索要出处和引用</strong></p>
+<ul>
+<li>步骤示例：提炼主题 → 检查遗漏 → 基于每个主题列要点 → 生成总结</li>
+<li>例：我正在计划一次长途旅行，需要考虑的因素包括预算、目的地选择、行程规划和行李打包。请帮我逐一分析这些因素，并标明出处，让我们一步步思考。</li>
+</ul>
+</li>
+<li>
+<p><strong>确定约束条件和输出格式</strong></p>
+<ul>
+<li>约束条件：字数限制、内容范围、面向受众、设定边界、指定规则</li>
+<li>输出格式：格式（列表、报告、论文）、结构、风格等</li>
+<li>例：用3个段落、300 个字总结所学课程的相关内容；列出影响大学生就业的5个主要因素，并对每个因素进行简要解释；模仿《百年孤独》开头的风格，写一段 200 字的关于人工智能的对话</li>
+</ul>
+</li>
+<li>
+<p><strong>为 Agent 设计提示词</strong></p>
+<ul>
+<li>明确角色与目标：&quot;你是一名数据分析智能体，目标是帮助用户从原始数据中提取商业洞察&quot;</li>
+<li>定义可用工具：&quot;你可以调用：1) search_web 搜索行业报告 2) run_python 执行分析代码 3) query_db 查询销售数据库&quot;</li>
+<li>设定执行流程：&quot;请先确认数据可用性 → 选择分析方法 → 执行并验证结果 → 生成可视化报告&quot;</li>
+<li>添加反思机制：&quot;每完成一个步骤，请自检：结果是否合理？是否需要调整策略？&quot;</li>
+</ul>
+</li>
+</ul>
+<hr>
+<div style="page-break-before: always;"></div>
+<h2 id="5-agentmcp-skill-与-harness"><strong>5 Agent、MCP、 Skill 与 Harness</strong></h2>
+<p>AI不断发展，简单的问答已不能满足复杂的生产级需求，<strong>智能体（Agent）</strong> 成为生产生活环节中AI应用的一个重要方向。本章节简要介绍构建高级AI应用的核心技术栈。</p>
+<h3 id="51-agent智能体">5.1 Agent（智能体）</h3>
+<h4 id="511-如何理解agent">5.1.1 如何理解Agent？</h4>
+<p><strong>Agent 就是 LLM（大脑） + Planning（规划。更进一步地，Harness） + Memory（记忆） + Tools（工具）。</strong><br>
+其中，<strong>LLM</strong>负责推理决策与语言理解，是智能体的认知核心；<strong>Planning</strong>通过任务分解、思维链（Chain-of-Thought）和反思机制，将抽象目标转化为可执行步骤。并且，对于 Harness 来说，它也涉及到约束条件，从而避免模糊生成；<strong>Memory</strong>包含短期对话上下文与长期向量存储，支撑经验积累与知识复用；<strong>Tools</strong>则通过函数调用、API集成等方式，将模型能力延伸至真实世界操作。四者协同，使 AI 的使用能够自动化乃至自主化，减少人工的干预。</p>
+<p><strong>核心能力</strong>：</p>
+<ul>
+<li><strong>自主性（Autonomy）</strong>：无需人工逐条指令，即可基于目标自主规划并执行多步任务，依赖目标驱动架构与任务分解算法实现；</li>
+<li><strong>反应性（Reactivity）</strong>：对环境变化（如用户输入、系统状态、外部事件）做出实时响应，通过多模态感知模块与流式推理引擎支撑；</li>
+<li><strong>主动性（Pro-activeness）</strong>：不局限于被动应答，能主动发起查询、预判需求、优化策略，核心在于思维链推理与自我反思循环；</li>
+<li><strong>社会性（Social Ability）</strong>：支持多智能体协作或人机协同，通过角色定义、通信协议（如消息路由、共识机制）实现任务分工与结果整合。</li>
+</ul>
+<p><strong>一些常见的框架：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">框架</th>
+<th style="text-align:left">特点 / 适用场景</th>
+<th style="text-align:left">优点</th>
+<th style="text-align:left">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>LangGraph</strong></td>
+<td style="text-align:left">追求流程可控性<br>基于状态机的可视化工作流，适合复杂任务（如审批流、多轮决策）</td>
+<td style="text-align:left">执行路径精确可控，适合对流程有严格要求的复杂场景</td>
+<td style="text-align:left">学习曲线较陡峭</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>AutoGen</strong> (Microsoft)</td>
+<td style="text-align:left">需要多角色协作<br>原生支持多智能体对话与角色分工，适合模拟团队协作（如研究员+程序员）</td>
+<td style="text-align:left">配置灵活，在多智能体交互和角色分工方面能力强</td>
+<td style="text-align:left">需要一定的工程基础</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>CrewAI</strong></td>
+<td style="text-align:left">快速搭建业务流水线<br>以“角色+任务+流程”为核心抽象，适合内容创作、数据分析等标准化场景</td>
+<td style="text-align:left">语法简洁，设计直观，上手门槛中等</td>
+<td style="text-align:left">功能侧重在标准化的协作流水线上</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>LangChain</strong></td>
+<td style="text-align:left">原型验证或教学实验<br>生态最成熟、工具集成最丰富，适合快速验证想法和学习</td>
+<td style="text-align:left">社区资源多，组件和集成极其丰富，学习资料充足</td>
+<td style="text-align:left">生产环境需注意性能优化，抽象层级较高</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>LlamaIndex</strong></td>
+<td style="text-align:left">专注知识检索增强 (RAG)<br>专精于RAG能力，适合构建文档问答、知识库助手</td>
+<td style="text-align:left">在数据连接、检索和上下文构建方面非常专精，常与LangChain互补</td>
+<td style="text-align:left">核心聚焦在RAG相关任务上</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>OpenAI Swarm</strong></td>
+<td style="text-align:left">轻量级快速验证<br>极简的多智能体路由框架，适合快速测试协作逻辑</td>
+<td style="text-align:left">代码量少，能极速构建小型多角色应用，依赖极简</td>
+<td style="text-align:left">功能相对基础，适合小型或验证性项目</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>OpenAI Agents</strong></td>
+<td style="text-align:left">集成 OpenAI API<br>无需额外框架，通过原生API构建智能体</td>
+<td style="text-align:left">依赖极简，完全控制，与OpenAI生态无缝集成</td>
+<td style="text-align:left">所有复杂工作流（如工具调用、记忆、路由）均需自行搭建</td>
+</tr>
+</tbody>
+</table>
+<p><strong>建议</strong>：初学者可从 <strong>CrewAI</strong> 或 <strong>LangChain</strong> 入手，掌握核心概念；有明确业务场景时，优先选择领域专精框架。</p>
+<h4 id="512-agent-示例">5.1.2 Agent 示例</h4>
+<p>此处可以参考：<a href="https://deepwiki.com/openai/openai-agents-python">https://deepwiki.com/openai/openai-agents-python</a><br>
+下文给出基于 OpenAI Agents 构建的一个示例 Agent。</p>
+<pre class="hljs"><code><div><span class="hljs-comment">#  A. 依赖库（使用 pip 或者 uv pip 或者其它）</span>
+pip install openai-agents
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># B. 设置 API 密钥，没有可以不用 长期使用建议写入 /etc/profile (for Linux)</span>
+
+<span class="hljs-built_in">export</span> OPENAI_API_KEY=YOUR_API_KEY
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># C. 创建智能体</span>
+<span class="hljs-keyword">from</span> agents <span class="hljs-keyword">import</span> Agent, Runner  
+  
+<span class="hljs-comment"># 创建  </span>
+agent = Agent(name=<span class="hljs-string">&quot;Assistant&quot;</span>, instructions=<span class="hljs-string">&quot;You are a helpful assistant&quot;</span>)  
+  
+<span class="hljs-comment"># 同步（而不是异步）运行  </span>
+result = Runner.run_sync(agent, <span class="hljs-string">&quot;Write a haiku about recursion in programming.&quot;</span>)  
+<span class="hljs-built_in">print</span>(result.final_output)
+</div></code></pre>
+<ul>
+<li>然后，运行这个应用。</li>
+</ul>
+<p>组件介绍：</p>
+<ul>
+<li><strong>Agent 类</strong>：定义智能体的基本配置
+<ul>
+<li><strong>name</strong>：智能体的可读名称</li>
+<li><strong>instructions</strong>：系统提示词</li>
+</ul>
+</li>
+<li><strong>Runner 类</strong>：执行智能体的运行器
+<ul>
+<li><strong>run_sync()</strong>：同步执行</li>
+<li><strong>run()</strong>：异步执行</li>
+</ul>
+</li>
+</ul>
+<p>对智能体构建感兴趣的读者，可以参考链接：<a href="https://deepwiki.com/microsoft/ai-agents-for-beginners">https://deepwiki.com/microsoft/ai-agents-for-beginners</a></p>
+<h3 id="52-mcp模型上下文协议">5.2 MCP（模型上下文协议）</h3>
+<h4 id="521-什么是mcp">5.2.1 什么是MCP？</h4>
+<p><strong>MCP（Model Context Protocol）</strong> 是由 Anthropic 推出的<strong>开放标准协议</strong>，核心目标是解决大语言模型与外部数据源、工具之间的连接碎片化问题。可以这么理解MCP：考虑USB（通用串行总线），通过定义统一的通信规范，让不同模型、工具、数据源能够即插即用，无需为每对组合单独开发适配器。</p>
+<p>详细解释在官方Wiki：<a href="https://modelcontextprotocol.io/docs/getting-started/intro">https://modelcontextprotocol.io/docs/getting-started/intro</a></p>
+<p><strong>图示</strong>：</p>
+<pre class="hljs"><code><div>┌─────────────────┐
+│  主机(Host)      │ ← AI应用
+│  • 发起连接      │
+└────────┬────────┘
+         │ 1:1 连接
+┌────────▼────────┐
+│  客户端(Client)  │ ← 协议通信层
+│  • 管理会话      │
+│  • 权限控制      │
+└────────┬────────┘
+         │ 标准化协议
+┌────────▼────────┐
+│  服务器(Server)  │ ← 数据/工具提供方
+│  • 资源(Resources)│  如：数据库、文档
+│  • 工具(Tools)   │  如：API、计算器
+│  • 提示词(Prompts)│  专业任务模板
+└─────────────────┘
+</div></code></pre>
+<ul>
+<li><strong>Host（主机）</strong>：AI 应用或客户端（如 Claude Desktop），负责发起连接并消费能力</li>
+<li><strong>Client（客户端）</strong>：协议通信中间层，管理会话生命周期、权限校验与消息路由</li>
+<li><strong>Server（服务器）</strong>：能力提供方，通过标准化接口暴露三类核心资产：
+<ul>
+<li><code>Resources</code>：只读数据源（如数据库、文档库、知识库），支持 <code>resources/list</code> 动态发现</li>
+<li><code>Tools</code>：可执行函数（如 API 调用、代码执行、计算器），通过 <code>tools/call</code> 安全触发</li>
+<li><code>Prompts</code>：预置任务模板（如&quot;数据分析报告生成&quot;），降低重复提示工程成本</li>
+</ul>
+</li>
+</ul>
+<p><strong>能力</strong>：</p>
+<ol>
+<li><strong>资源发现</strong>（<code>resources/list</code>）：AI 可主动查询&quot;我能访问哪些数据&quot;，实现动态能力感知，避免硬编码数据源路径；</li>
+<li><strong>工具调用</strong>（<code>tools/call</code>）：模型生成结构化调用请求，由 Server 端安全执行后返回结果，实现&quot;模型决策 + 应用执行&quot;的权责分离；</li>
+<li><strong>采样机制</strong>（<code>sampling/createMessage</code>）：敏感操作（如删除数据、发送消息）前强制插入人工确认环节，保障人机协同可控性；</li>
+<li><strong>权限隔离</strong>：所有凭证（API Key、数据库密码）由 Server 端管理，Host 端仅传递业务参数，从架构层面杜绝密钥泄露风险。</li>
+</ol>
+<h4 id="522-为什么需要-mcp">5.2.2 为什么需要 MCP？</h4>
+<ul>
+<li>
+<p>传统 AI 集成的困境：</p>
+<ol>
+<li>每接入一个新模型需重写适配器（N×M 复杂度）</li>
+<li>API 密钥常硬编码在客户端，安全风险高</li>
+<li>工具描述格式五花八门，模型理解成本大</li>
+<li>跨平台协作缺乏标准，生态难以复用</li>
+</ol>
+</li>
+<li>
+<p>MCP 协议标准化：</p>
+<ol>
+<li>统一接口定义使开发复杂度降至 N+M</li>
+<li>Server 端凭证管理实现安全隔离</li>
+<li>JSON Schema 规范工具描述提升模型调用准确率</li>
+<li>开放生态设计，催生类似 HTTP 的网络效应 —— 一次开发，多处复用</li>
+</ol>
+</li>
+</ul>
+<h4 id="523-一个本地部署-mcp-服务器的示例">5.2.3 一个本地部署 MCP 服务器的示例</h4>
+<p>此处参考的是 FastMCP：<a href="https://deepwiki.com/jlowin/fastmcp">https://deepwiki.com/jlowin/fastmcp</a><br>
+示例是在 Linux 下完成操作的（或者，也可以使用 WSL2）</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># 1. 安装，这里使用 UV 管理整个环境</span>
+uv pip install fastmcp
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># 2. 创建第一个 MCP 服务器（选一个你喜欢的方式创建文件）</span>
+vim my_server.py
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># 定义这个服务器</span>
+<span class="hljs-keyword">from</span> fastmcp <span class="hljs-keyword">import</span> FastMCP  
+  
+mcp = FastMCP(<span class="hljs-string">&quot;My MCP Server&quot;</span>)
+<span class="hljs-comment"># 添加功能组件：工具、资源、提示</span>
+
+<span class="hljs-comment"># Tools</span>
+<span class="hljs-meta">@mcp.tool  </span><span class="hljs-comment"># 使用修饰器注册组件</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">greet</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:  <span class="hljs-comment"># 必须用类型注解，否则容易导致未定义行为</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;Hello, <span class="hljs-subst">{name}</span>!&quot;</span>
+quickstart.mdx:<span class="hljs-number">35</span>-<span class="hljs-number">38</span>
+
+<span class="hljs-comment"># Resources</span>
+<span class="hljs-meta">@mcp.resource(<span class="hljs-params"><span class="hljs-string">&quot;data://config&quot;</span></span>)  </span><span class="hljs-comment"># 暴露可读资源</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get_config</span>() -&gt; <span class="hljs-built_in">dict</span>:  
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">&quot;theme&quot;</span>: <span class="hljs-string">&quot;dark&quot;</span>, <span class="hljs-string">&quot;version&quot;</span>: <span class="hljs-string">&quot;1.0&quot;</span>}
+
+<span class="hljs-comment"># Prompts</span>
+<span class="hljs-meta">@mcp.prompt  </span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">analyze_data</span>(<span class="hljs-params">data_points: <span class="hljs-built_in">list</span>[<span class="hljs-built_in">float</span>]</span>) -&gt; <span class="hljs-built_in">str</span>:  <span class="hljs-comment"># 创建消息模板</span>
+    formatted_data = <span class="hljs-string">&quot;, &quot;</span>.join(<span class="hljs-built_in">str</span>(point) <span class="hljs-keyword">for</span> point <span class="hljs-keyword">in</span> data_points)  
+    <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;Please analyze these data points: <span class="hljs-subst">{formatted_data}</span>&quot;</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># 3. 运行这个服务</span>
+fastmcp run my_server.py
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># 4. 从客户端请求并使用服务</span>
+<span class="hljs-comment"># clinent.py</span>
+<span class="hljs-keyword">import</span> asyncio  
+<span class="hljs-keyword">from</span> fastmcp <span class="hljs-keyword">import</span> Client  
+  
+client = Client(<span class="hljs-string">&quot;http://localhost:8000/mcp&quot;</span>)  
+  
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">call_tool</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span></span>):  
+    <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> client:  
+        result = <span class="hljs-keyword">await</span> client.call_tool(<span class="hljs-string">&quot;greet&quot;</span>, {<span class="hljs-string">&quot;name&quot;</span>: name})  
+        <span class="hljs-built_in">print</span>(result)  
+  
+asyncio.run(call_tool(<span class="hljs-string">&quot;Ford&quot;</span>))
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># 运行客户端</span>
+python3 client.py
+</div></code></pre>
+<h4 id="524-补充">5.2.4 补充</h4>
+<p>截至 2026 年，主流大模型（Claude、GPT-4o、Gemini）及开发框架（LangChain、LlamaIndex）均已支持 MCP 协议，开源社区贡献了超过 200 种预置 Server（如 PostgreSQL、Google Calendar、Notion），可访问 <a href="https://github.com/punkpeye/awesome-mcp-servers">awesome-mcp-servers</a> 一键集成。</p>
+<h3 id="53-agent-skill智能体技能">5.3 Agent Skill（智能体技能）</h3>
+<h4 id="531-什么是agent-skills">5.3.1 什么是Agent Skills？</h4>
+<p>Agent Skills 是 Anthropic 提出的<strong>技能标准化协议</strong>，通过结构化文档+脚本+资源的组合，让智能体能够&quot;即插即用&quot;地掌握特定领域能力。</p>
+<p><strong>GitHub 项目地址：</strong> <a href="https://github.com/anthropics/skills/tree/main">https://github.com/anthropics/skills/tree/main</a></p>
+<p><strong>引文：</strong></p>
+<p>Skills are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks. Skills teach Claude how to complete specific tasks in a repeatable way, whether that's creating documents with your company's brand guidelines, analyzing data using your organization's specific workflows, or automating personal tasks.</p>
+<p><strong>机翻：</strong></p>
+<p>技能是包含指令、脚本和资源的文件夹，Claude 可动态加载以提升其在特定任务上的表现。技能以可重复的方式教导 Claude 如何完成具体任务，无论是按照您公司的品牌指南创建文档、运用您组织的特定工作流程分析数据，还是自动化处理个人任务。</p>
+<h4 id="532-skill-项目的一个最小结构">5.3.2 Skill 项目的一个最小结构</h4>
+<pre class="hljs"><code><div>skills/
+├── SKILL.md            # 元数据：名称、描述、触发条件
+├── LICENSE.txt         # 使用条款
+└── scripts/            # 可执行代码（Python/Shell等）
+</div></code></pre>
+<p>可以配置更多文件/文件夹实现自定义功能，此处示例参考官方仓库的最小实现。</p>
+<h4 id="533-skillmd-字段示例">5.3.3 SKILL.md 字段示例</h4>
+<p>来自 <a href="https://github.com/anthropics/skills/blob/main/README.md">https://github.com/anthropics/skills/blob/main/README.md</a> 的 <em>Create a Basic Skill</em> 部分，下文为翻译与注释</p>
+<pre class="hljs"><code><div>---
+name: my-skill-name          # 唯一标识（小写，短横线分隔）
+<span class="hljs-section">description: 技能的完整描述和使用场景
+---</span>
+
+<span class="hljs-section"># my-skill-name</span>
+[此处填写 Claude 执行任务时遵循的指令，标题使用你在上文填写过的唯一标识名]
+
+<span class="hljs-section">## 示例</span>
+<span class="hljs-bullet">-</span> 使用示例 1
+<span class="hljs-bullet">-</span> 使用示例 2
+
+<span class="hljs-section">## 指南</span>
+<span class="hljs-bullet">-</span> 指南 1
+<span class="hljs-bullet">-</span> 指南 2
+
+</div></code></pre>
+<h4 id="534-设计原则">5.3.4 设计原则</h4>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>说明</th>
+<th>避雷点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>单一职责</strong></td>
+<td>一个 Skill 专注解决一类问题</td>
+<td>什么都做但都不精</td>
+</tr>
+<tr>
+<td><strong>清晰触发</strong></td>
+<td>description 明确说明&quot;何时使用&quot;</td>
+<td>模糊描述导致模型误调用</td>
+</tr>
+<tr>
+<td><strong>结构化指令</strong></td>
+<td>Markdown 分层：快速开始 → 进阶 → 故障排除</td>
+<td>大段文字无重点</td>
+</tr>
+<tr>
+<td><strong>可运行示例</strong></td>
+<td>提供完整代码与预期输出</td>
+<td>只有理论描述</td>
+</tr>
+<tr>
+<td><strong>边界说明</strong></td>
+<td>明确限制条件和失败处理</td>
+<td>假设所有输入都合法</td>
+</tr>
+</tbody>
+</table>
+<h3 id="54-harness-约束框架">5.4 Harness （约束框架）</h3>
+<h4 id="541-什么是harness">5.4.1 什么是Harness？</h4>
+<p>一种<strong>智能体工程方法论</strong>，核心目标是通过系统化的约束、反馈与编排机制，让AI智能体能够可靠地执行长时间、多步骤的复杂任务。</p>
+<p>Harness 保障 Skill 得当应用，从而保证整个工程的可靠性，为AI工程的范式转变奠定基础</p>
+<ul>
+<li>
+<p>传统软件工程：人类设计 → 人类编码 → 机器执行</p>
+</li>
+<li>
+<p>AI辅助编码：人类设计 → 人机协同编码 → 机器执行</p>
+</li>
+<li>
+<p>Harness 工程：人类定义目标与约束 → 智能体系统（在Harness管理下规划、调用技能、协作）→ 自动化验证与评估</p>
+</li>
+<li>
+<p>参考 Anthropic 的博客，他们很擅长干这件事：</p>
+<ul>
+<li>[1]<a href="https://www.creolestudios.com/anthropic-harness-design-for-reliable-ai-agents">https://www.creolestudios.com/anthropic-harness-design-for-reliable-ai-agents</a></li>
+<li>[2]<a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">https://www.anthropic.com/engineering/harness-design-long-running-apps</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="542-为什么需要harness">5.4.2 为什么需要Harness？</h4>
+<p>尽管 AI Agent 的业务能力相当一流，但因为幻觉以及上下文遗忘等问题，交付成果往往不尽人意。因此，一个专门的管理与评估框架（Harness）至关重要。Anthropic 是这么理解 Harness 的：</p>
+<p>（来自 [1]）</p>
+<pre class="hljs"><code><div>What Is Anthropic Harness Design (And Why It Matters)
+Harness engineering is the discipline of designing the systems, constraints, and feedback loops that make AI agents reliable in production.
+
+Think of it this way:
+
+The model is the reasoning engine
+The harness is the operating system
+Without a harness, an agent is just a probabilistic responder. With a harness, it becomes a controlled, observable, and reliable system.
+
+This is not theoretical.
+
+LangChain improved agent performance significantly by modifying only the harness, not the model
+OpenAI scaled production-grade systems like Codex through structured harness design
+The takeaway is simple:
+
+If your agent is failing, optimizing the model is often the wrong move. Fix the harness first.
+</div></code></pre>
+<p><strong>机翻（以及结构化）：</strong></p>
+<p><strong>Anthropic 约束框架设计（及其重要性）</strong><br>
+约束工程是一门设计系统、约束条件和反馈循环的学科，旨在使AI智能体在生产环境中可靠运行。</p>
+<p>可以这样理解：</p>
+<ul>
+<li><strong>模型是推理引擎</strong></li>
+<li><strong>约束框架是操作系统</strong></li>
+</ul>
+<p>没有约束框架，智能体只是一个概率性的响应者。有了约束框架，它才成为一个受控、可观察且可靠的系统。</p>
+<p>这并非理论空谈：</p>
+<ul>
+<li>LangChain 仅通过修改约束框架（而非模型），就显著提升了智能体性能</li>
+<li>OpenAI 通过结构化的约束框架设计，实现了如 Codex 这样的生产级系统</li>
+</ul>
+<p>关键结论很简单：</p>
+<p><strong>如果你的智能体运行不佳，优化模型往往是错误的方向。首先，修复你的约束框架。</strong></p>
+<h4 id="543-架构示意">5.4.3 架构示意</h4>
+<p>（这一部分参考了 [2]）</p>
+<pre class="hljs"><code><div>┌─────────────────────────────────┐
+│  Spec Planner（计划）            │
+│  • 输入：1-4句用户模糊需求        │
+│  • 输出：一个 plan，补完用户描述  │
+│  • 关键：聚焦高层设计，避免过度细节│
+├─────────────────────────────────┤
+│  Coder Agent（生成器）           │
+│  • 输入：规格说明 + 冲刺契约      │
+│  • 输出：可运行代码+自测报告      │
+│  • 关键：按&quot;冲刺&quot;迭代，每步可回滚 │
+├─────────────────────────────────┤
+│  QA Agent（评估器）              │
+│  • 输入：生成产物+验收标准        │
+│  • 输出：结构化评分+改进建议      │
+└─────────────────────────────────┘
+         ↑ 反馈循环 ↑
+      评估 → 迭代 → 再评估 → ...
+</div></code></pre>
+<p><strong>流程</strong>：</p>
+<ol>
+<li><strong>规划阶段</strong>：策划者将模糊需求扩展为包含功能列表、技术栈、验收标准的产品规格。</li>
+<li><strong>冲刺执行</strong>：生成器按&quot;一次一个功能&quot;原则开发，每完成一个冲刺即生成可测试产物。</li>
+<li><strong>质量验证</strong>：评估器通过自动化测试+人工体验式检查，对照契约逐项评分。</li>
+<li><strong>反馈迭代</strong>：未达标项返回生成器修复，达标项合并至主分支，直至整体完成。</li>
+</ol>
+<ul>
+<li>比如，在 [2] 中的那位工程师 Prithvi Rajasekaran 是这样实践的：
+<ul>
+<li>生成器创建 HTML/CSS/JS</li>
+<li>评估器使用 Playwright MCP 真正地进行人类交互（截图、导航）而不只是审阅代码。并根据人类的标准，打分并提供详细批评</li>
+<li>生成器根据反馈迭代（5-15 轮）</li>
+</ul>
+</li>
+</ul>
+<h4 id="544-设计原则">5.4.4 设计原则</h4>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>核心思想</th>
+<th>实践要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>奥卡姆剃刀</strong></td>
+<td>找到最简单的解决方案，无必要勿增实体（组件）</td>
+<td>定期精简框架，移除已不再必需的编排逻辑（比如，大模型性能升级，减少过度编排）</td>
+</tr>
+<tr>
+<td><strong>可执行文档</strong></td>
+<td>文档不是给人看的，而是给智能体用的</td>
+<td>（比如，在 Cursor 中）使用 <code>AGENTS.md</code> 作为内容目录，指向结构化知识库；自动化验证</td>
+</tr>
+<tr>
+<td><strong>约束即加速器</strong></td>
+<td>严格的架构边界反而提升智能体效率</td>
+<td>强制执行分层依赖、代码规范、数据边界校验；约束一旦编码，可立即全局复用</td>
+</tr>
+<tr>
+<td><strong>持续清理机制</strong></td>
+<td>“断舍离”：必要的记忆清除</td>
+<td>当上下文满了或任务阶段结束时，清除记忆，带着结构化 Artifacts 启动一个新实例</td>
+</tr>
+</tbody>
+</table>
+<h4 id="545-使用时机">5.4.5 使用时机</h4>
+<pre class="hljs"><code><div>依据任务复杂度分类
+│
+├─ 简单问答/单步操作 → 只需输入 Prompt
+│
+├─ 多步骤但可线性执行 → Agent + Tools + CO-STAR 提示
+│
+├─ 长时运行，并且有质量要求 → Harness 框架
+│  │
+│  ├─ 审美判断 → 强化评估器评分标准
+│  ├─ 鲁棒性 → 增加自动化测试、静态分析
+│  └─ 人机协同 → 在关键节点插入采样确认
+│
+└─ 大规模工程(10万+行代码) → Harness 只能作为辅助，必须依赖人工主动干预与协调
+</div></code></pre>
+<h4 id="546-claude-code-意外泄露源码">5.4.6 Claude Code 意外泄露源码</h4>
+<p>2026 年 3 月 31 日，Claude Code 新版本的 npm 包构建时意外包含了 source map 文件（cli.js.map），导致约 51.2 万行 TypeScript 源码被重建并公开。截至目前（2026.04.05），在 GitHub 上可能有数以百计的副本存在。这其中最有价值的部分是其 <strong>Harness</strong> 实践部分，即其约束框架的具体技术实现。此处我们不打算放置任何源代码以规避所有的合规性问题。但有兴趣的读者可以参考一个合规的开源项目（很大程度上参考了 Claude Code，使用 Python 与 Rust）：<a href="https://claw-code.codes">https://claw-code.codes</a></p>
+<h3 id="55-四者协同">5.5 四者协同</h3>
+<h4 id="551-什么在何处负责">5.5.1 什么在何处负责</h4>
+<ul>
+<li><strong>Agent（智能体）</strong>：负责理解目标、规划任务、编排多步流程与角色分配；输入为用户意图与上下文，输出为子任务序列与工具调用请求。</li>
+<li><strong>MCP（模型上下文协议）</strong>：负责能力发现与安全对接（resources/tools/prompts），管理凭证并确保服务端执行敏感操作；输入为能力查询，输出为可调用的资源/工具描述。</li>
+<li><strong>Skill（技能）</strong>：封装具体能力（脚本、模板、解析器），以可复用、小粒度单元提供功能；输入为结构化参数，输出为功能性结果或数据片段。</li>
+<li><strong>Harness（约束框架）</strong>：负责监控、评估、回退与合规（采样/审批/指标）；保证端到端可靠性与可观测性。</li>
+</ul>
+<h4 id="552-典型数据与调用流">5.5.2 典型数据与调用流</h4>
+<ol>
+<li>用户发起请求（含目标与约束）</li>
+<li>Agent 解析目标并生成子任务清单</li>
+<li>Agent 通过 MCP 查询可用 <code>resources</code> 与 <code>tools</code>，选择对应 Skill</li>
+<li>调用 Skill（经 MCP 转发/执行），Skill 返回执行结果</li>
+<li>Harness 对结果进行自动化评估（或触发人工确认），必要时回退或重试</li>
+<li>最终结果经 Agent 聚合、格式化并返回用户</li>
+</ol>
+<p>关键：状态同步（上下文与会话）、凭证隔离（敏感操作不下发客户端）、错误传播与可观测性（日志/链路追踪）</p>
+<h4 id="553-常见协同模式与场景">5.5.3 常见协同模式与场景</h4>
+<ul>
+<li><strong>检索增强生成（RAG）</strong>：MCP 暴露文档资源 → Skill 负责向量检索与摘要 → Agent 聚合证据并生成响应 → Harness 校验引用与溯源</li>
+<li><strong>长时/多步骤任务</strong>：Agent 分解任务为多个冲刺，Skill 执行短任务单元，Harness 在关键节点插入采样与人工审批以保证质量。</li>
+<li><strong>实时工具调用</strong>：计算或第三方 API 由 Skill 封装，经 MCP 管理凭证，由 Harness 控制敏感操作的审批与采样策略。</li>
+</ul>
+<h4 id="554-设计原则与最佳实践">5.5.4 设计原则与最佳实践</h4>
+<ul>
+<li><strong>接口契约优先</strong>：用明确的 JSON Schema 描述 Skill/Tool 接口，避免语义歧义。</li>
+<li><strong>最小暴露原则</strong>：所有凭证由 MCP Server 管理，Host/Agent 只传递业务参数。</li>
+<li><strong>可观测性</strong>：链路追踪、指标、日志与审计事件是生产系统的必备项。</li>
+<li><strong>幂等与回退</strong>：Skill 调用应设计为幂等或支持补偿操作，Harness 要能执行回退策略。</li>
+<li><strong>自动化测试与评估器</strong>：在 Harness 中集成 Evaluator，对产物进行结构化评分并自动触发修复流程。</li>
+</ul>
+<h4 id="555-简要示例">5.5.5 简要示例</h4>
+<p>用例简述：用户请求“生成公司A的2026年3月月度运营报告并列出三条风险建议”。</p>
+<p>流程：</p>
+<ul>
+<li>Agent 将需求拆为：数据检索 → 指标计算 → 文档撰写 → 合规检查。</li>
+<li>Agent 询问 MCP 可用资源（历史数据表、BI API、品牌模板），选定对应 Skill（<code>fetch_data</code>、<code>compute_metrics</code>、<code>write_report</code>）。</li>
+<li>各 Skill 返回中间结果，Agent 聚合为初稿。Harness 启动评估器检查数据完整性与隐私合规，必要时插入人工审批。最后 Agent 输出最终报告并附数据来源清单。</li>
+</ul>
+<p>失败处理：若 <code>fetch_data</code> 返回缺失关键指标，Harness 会触发重试/降级路径（例如用近似替代或标注数据缺口并请求人工介入）。</p>
+<h4 id="556-qa">5.5.6 Q&amp;A</h4>
+<ul>
+<li><strong>Q：谁管理凭证？</strong>
+<ul>
+<li>A：由 MCP Server 集中管理并做最小权限分配。</li>
+</ul>
+</li>
+<li><strong>Q：如何避免 Skill 膨胀？</strong>
+<ul>
+<li>A：坚持单一职责、维护 Skill 注册目录并定期审查使用频次。</li>
+</ul>
+</li>
+<li><strong>Q：Agent 出问题先修模型还是先修 Harness？</strong>
+<ul>
+<li>A：优先检查 Harness（约束/评估/回退），因为多数可靠性问题源自编排与约束缺失而非模型本身。</li>
+</ul>
+</li>
+</ul>
+<h4 id="557-建议">5.5.7 建议</h4>
+<ul>
+<li><strong>何时引入哪一层：</strong> 早期原型，封装单 Skill；当出现多工具/资料來源整合时，引入 MCP；遇到多步骤/质量需求时，设计 Harness；Agent 用于协调业务逻辑，也是主要的执行器。</li>
+<li><strong>三步走：</strong>
+<ul>
+<li>定义、实现1-2个可运行 Skill</li>
+<li>用 Agent 编排简单工作流，并验证端到端流程</li>
+<li>在关键节点加入 Harness 的评估与回退策略以提升可靠性</li>
+</ul>
+</li>
+</ul>
+<hr>
+<div style="page-break-before: always;"></div>
+<h2 id="6-一些高级-ai-应用简介"><strong>6. 一些高级 AI 应用简介</strong></h2>
+<p>上一章节讲述的概念是不少 AI 应用的框架，这一章节我们考察一些已经集成大部分套件，从而可以直接使用的 AI 应用。</p>
+<h3 id="61-openclaw">6.1 OpenClaw</h3>
+<p><strong>OpenClaw</strong> 大约是在今年三月份突然流行的。在此期间，网络上出现了不少广告，诸如“上门安装小龙虾，50一次”，比比皆是。而在网信办、工信部、国家互联网应急中心等机构相继发出安全警告之后，又涌现出许多“付费卸载小龙虾”的广告。这不应该是一种潮流，因为所有的安装、使用、卸载以及合规性、安全性检查等事项，均在 <a href="https://docs.openclaw.ai/zh-CN">https://docs.openclaw.ai/zh-CN</a> 上详尽地提供。作为 AI 应用的使用者（尤其是 Agent 类，它可以访问你的敏感本地数据），拥有一些基本的、关于 OpenClaw 所涉及的计算机组成、计算机网络组成知识对高效、安全地使用这类应用至关重要。因此，本节努力将对 OpenClaw 的技术架构进行通俗讲解，以使读者了解必要的信息。</p>
+<h4 id="611-简介">6.1.1 简介</h4>
+<p>根据官网的描述：</p>
+<p><strong>适用于 Discord、Google Chat、iMessage、Matrix、Microsoft Teams、Signal、Slack、Telegram、WhatsApp、Zalo 等更多平台的任意操作系统 AI 智能体 Gateway 网关。</strong></p>
+<p><strong>它是什么：</strong> 一个自托管<strong>网关</strong></p>
+<p>普通的网关（就像你在之前的互联网生活见到的那样）负责下列事项：</p>
+<ul>
+<li>职责: 将不同通道的消息做协议适配与可靠转发，使后端服务能以统一接口处理消息。</li>
+<li>协议转换: 将不同聊天协议的消息格式标准化为后端可处理的 API 请求。</li>
+<li>路由转发: 基于静态路由表或规则（目标地址、渠道类型）进行转发。</li>
+<li>身份管理: 将跨渠道的外部标识（如 Telegram/Discord/微信）统一映射为内部用户 ID。</li>
+<li>接入控制与日志: 提供认证、限流、审计和基本监控，保障消息流与操作可追踪。</li>
+</ul>
+<p>但是，OpenClaw 着重下列要点：</p>
+<ul>
+<li>不同重心：在承担传统网关职责的同时，增加对智能体（Agent）编排、技能（Skill）加载与语义路由的支持，这是 LLM 能够介入传统互联网设施的关键途径。</li>
+<li>更智能的协议转换：不仅做格式转换，还把多渠道/多模态输入结构化为语义事件或意图表示，便于下游智能处理。</li>
+<li>灵活路由转发：意图以及语义驱动，能识别诸如“我要查天气”或者“我要通知xxx”这样的指令，请求分发给合适的 Tool 或 Skill 或者第三方 API。</li>
+<li>一致性身份管理：支持更丰富的会话上下文与跨渠道长期用户画像，便于保持一致的多轮交互体验。</li>
+<li>智能监控：集中管理凭证，提供细粒度审批、采样与审计机制，严格隔离敏感操作。</li>
+</ul>
+<p>通过将 AI 引入网关，OpenClaw 能够方便地完成上述拓展了的功能。</p>
+<h4 id="612-部署事项">6.1.2 部署事项</h4>
+<p>我们不打算在这里提供详尽的安装教程，因为相当完善的教程已经在 <a href="https://docs.openclaw.ai/zh-CN/install">https://docs.openclaw.ai/zh-CN/install</a> 提供，所以这里只介绍一些信息。</p>
+<ul>
+<li>支持的平台：支持 Windows 系列、WSL2（官方推荐尽量在 <strong>WSL2</strong> 而不是通过 Windows PowerShell 部署）、MacOS，以及，最重要的，Liunx。</li>
+<li>如果你不从源码构建，只需要 Node 24 或者 22 。Node.js 用于支撑整个网关的语言环境，按照官网给出的教程恰当地安装它们，避免污染重要的环境变量。</li>
+<li>网关部署之后，你就能自由地在局域网内浏览。如果存在远程访问需求，请使用 Web 页面（部署教程在 <a href="https://docs.openclaw.ai/web">https://docs.openclaw.ai/web</a> ）或者 Tailscale 组网。</li>
+<li>部署网关只是第一步，重要的是让网关访问你已经存在的社交媒体，国外常见的社交媒体列表在：<a href="https://docs.openclaw.ai/zh-CN/channels/bluebubbles">https://docs.openclaw.ai/zh-CN/channels/bluebubbles</a> 。对于国内流行的平台：
+<ul>
+<li>微信：<a href="https://www.runoob.com/ai-agent/openclaw-weixin.html">https://www.runoob.com/ai-agent/openclaw-weixin.html</a></li>
+<li>QQ（截至目前唯一的官方支持）：<a href="https://qclaw.qq.com/">https://qclaw.qq.com/</a></li>
+<li>其它，请另行参阅你所使用的社交平台的政策</li>
+</ul>
+</li>
+<li>整个部署的核心前提是，你已经拥有了 API Key 用来支持 LLM 调用。只有极少数 API 是免费的，比如硅基流动（SiliconFlow）提供一些 7B、8B 等小参数模型的免费 API，具体请访问：<a href="https://siliconflow.cn/models">https://siliconflow.cn/models</a> 。但是请注意，小模型存在更严重的安全审计及幻觉问题，仅适合验证部署。</li>
+</ul>
+<h4 id="613-安全问题">6.1.3 安全问题</h4>
+<p>更详细的介绍可以参考：<a href="https://news.cctv.com/2026/03/11/ARTIU9NPnXcPCDiU9cOfqTlD260311.shtml">央视网：工信部发布关于防范OpenClaw（“龙虾”）开源智能体安全风险建议</a></p>
+<p>所有安全问题中最主要的是，该网关把自然语言指令转为对宿主系统或外部服务的实际操作（比如，通过向 Shell 执行命令），几乎所有执行决策都来自 LLM。LLM 容易受到提示词注入攻击以及模型幻觉影响，因此会生成危险、错误或恶意的指令。未经审查的第三方插件与开放接口进一步扩大攻击面，允许横向移动与持久化攻击。</p>
+<p>与此同时，OpenClaw 拥有十分高的权限，跟普通用户同级，也能偶尔获得管理员权限，因此，误操作的代价很大并且概率不低，这里转述一起案例：2026 年 2 月 23 日，Meta 公司超级智能实验室的 AI 安全专家Summer Yue，将 OpenClaw 接入了自己的工作邮箱，结果这个本该帮忙整理邮件的“数字秘书”当场失控，无视她连续三次的“停止”指令，疯狂删除数百封邮件。</p>
+<p>另外，这股热潮吸引了很多非技术用户，大部分部署者没有多少计算机网络安全意识，将其服务端口直接暴露在公网并且不加密或者弱加密，很快就被夺取了主机权限，导致资金流失、泄密等严重问题。</p>
+<p><strong>一些通用的提示与建议：</strong></p>
+<ul>
+<li>不要把网关的服务端口（Port <strong>18789</strong>）暴露在公网，尤其是暴露在 <strong>IPv4</strong> 公网，全世界的 IPv4 地址只有四十亿个左右，每天每个地址都可能被扫描几遍，因此最好只在局域网尝鲜使用。若确有访问需求，应该使用专门的工具代理你的流量，比如 <strong>Cloudflare Tunnel</strong>；如果你的数据太过敏感，放弃远程访问。</li>
+<li>OpenClaw 支持插件，其形式是 Agent Skills。这里是<strong>提示词注入</strong>的高危区，因此，在你下载任何 Skills 之前，请先确认作者的资质，并在下载后<strong>手动</strong>验证内容。比如，你使用 Linux，请审查 <code>~/.openclaw/skills//SKILL.md</code> ，确认无恶意指令（如<code>curl</code>、<code>bash</code>）或者看起来很奇怪的诱导性提示词。</li>
+<li>十分不建议在主力物理机上以任何形式部署 OpenClaw，即使你使用 Docker，<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-24763">CVE-2026-24763</a> 已经被证实，OpenClaw 在 Docker 沙箱中执行命令时不会安全处理 <code>PATH</code> 环境变量。攻击者通过注入恶意 <code>PATH</code> 值（如 <code>PATH=/tmp:/bin;id;</code>），可突破权限，在容器内执行任意 Shell 命令。条件允许的情况下，请你购买或布置另一台不重要的、不涉密的、廉价的<strong>物理机器</strong>部署这个网关，并布置好必要的防火墙。</li>
+</ul>
+<p><strong>企业报告：</strong><br>
+（摘录自 <a href="https://www.qianxin.com/threat/reportdetail?report_id=345">https://www.qianxin.com/threat/reportdetail?report_id=345</a> ）</p>
+<p>奇安信XLab实验室研究发现，OpenClaw生态当前面临多维度的安全威胁：</p>
+<ul>
+<li>互联网暴露面持续扩大：全球 23 万+实例暴露在互联网，近 9%存在已知漏洞风险，安全风险不容忽视。</li>
+<li>Skills 供应链投毒活跃：恶意 Skills 通过提示词注入、远程代码执行、数据窃取、社会工程学等多种手段对用户构成威胁。攻击手法从简单的 base64 混淆演进到双层混淆、SVG 隐藏 XSS、语义蠕虫等高级形态。</li>
+<li>仿冒域名急剧增长：累计 3,500+仿冒域名，涵盖域名抢注、品牌钓鱼、竞品引流等多种形态，随着 OpenClaw 热度提升仍在持续增长。</li>
+</ul>
+<hr>
+<div style="page-break-before: always;"></div>
+<h2 id="7-针对本科学生的优惠项目"><strong>7 针对本科学生的优惠项目</strong></h2>
+<p>如果你在 Microsoft VS Code 中进行编码任务，可以使用其提供的 AI 辅助功能。而 GitHub 官方提供了面向大学生的 GitHub Copilot Student plan，受益者也包括在中国大陆的学生。本章节提供了一个<strong>仅供参考</strong>的教程，请务必查阅最新的官方文档以获取信息。如果不可行，请尝试在浏览器或者某些视频站（如B站）上，以关键词“GitHub学生优惠”进行搜索，不少大陆学生分享了自己成功参加该计划的经验。</p>
+<h3 id="71-github-copilot-学生优惠概览">7.1 GitHub Copilot 学生优惠概览</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>价值</th>
+<th>学生权益</th>
+<th>有效期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GitHub Copilot Pro</strong></td>
+<td>$10/月</td>
+<td>免费使用</td>
+<td>2年（可续期）</td>
+</tr>
+<tr>
+<td><strong>GitHub Pro</strong></td>
+<td>$4/月</td>
+<td>无限私有仓库</td>
+<td>2年</td>
+</tr>
+<tr>
+<td><strong>JetBrains 全家桶</strong></td>
+<td>~$150/年</td>
+<td>IDEA/PyCharm/WebStorm等免费</td>
+<td>1年（可续期）</td>
+</tr>
+<tr>
+<td><strong>Azure 云额度</strong></td>
+<td>$100</td>
+<td>云服务器/数据库免费额度</td>
+<td>12个月</td>
+</tr>
+<tr>
+<td><strong>免费域名</strong></td>
+<td>~$15/年</td>
+<td>.me/.tech等域名免费1年</td>
+<td>1年</td>
+</tr>
+<tr>
+<td><strong>50+ 开发工具</strong></td>
+<td>价值数千</td>
+<td>包括 Canva Pro、Namecheap 等</td>
+<td>按各工具政策</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注</strong>：学生认证成功后，通常可直接获得 <strong>2年免费使用期</strong>，到期后可凭在读证明重新认证续期（当然，请进一步参考官方布告获得最新消息）</p>
+<h3 id="72-申请前准备">7.2 申请前准备</h3>
+<h4 id="721-必备材料">7.2.1 必备材料</h4>
+<ol>
+<li><strong>学校邮箱</strong>（<code>.edu</code> 或 <code>.edu.cn</code> 结尾，或学校官方域名）</li>
+<li><strong>学生身份证明</strong>（任选其一或者多选）：
+<ul>
+<li>学生证（清晰显示：学校名称、姓名、有效期）</li>
+<li>学信网《教育部学籍在线验证报告》（中英文版）</li>
+<li>在读证明/学籍证明（需学校盖章）</li>
+<li>录取通知书（新生适用）</li>
+<li>如果以上都没有，请准备一张干净的信纸或白纸。以黑色签字笔，使用英文手写：你的学校，学号，姓名，性别，入学与毕业日期</li>
+</ul>
+</li>
+<li><strong>实名认证的 GitHub 账号</strong>：
+<ul>
+<li>姓名要<strong>首字母大写拼音</strong></li>
+<li>完善 Billing → Payment information 中的姓名和地址</li>
+</ul>
+</li>
+<li><strong>开启双重验证（2FA）</strong>：
+<ul>
+<li>下载 Microsoft Authenticator 或 Google Authenticator。也可以自行查找社区制作的第三方2FA验证器</li>
+<li>在 GitHub Settings → Password and authentication 中启用</li>
+</ul>
+</li>
+</ol>
+<h4 id="722-常见问题">7.2.2 常见问题</h4>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>认证时提示&quot;位置不在学校&quot;</td>
+<td>🔹 在校园内申请，或连接学校WiFi/VPN<br>🔹 浏览器允许定位权限</td>
+</tr>
+<tr>
+<td>学生证无英文信息</td>
+<td>🔹 用便利贴标注英文翻译后拍照<br>🔹 或优先使用学信网英文报告</td>
+</tr>
+<tr>
+<td>使用虚拟摄像头上传</td>
+<td>🔹 <strong>必须用真实摄像头实时拍摄</strong>，不支持直接上传图片文件</td>
+</tr>
+<tr>
+<td>新注册账号秒拒</td>
+<td>🔹 完善个人资料、提交1-2个公开项目后再申请</td>
+</tr>
+<tr>
+<td>网络访问不稳定</td>
+<td>🔹 申请时关闭代理，使用校园网直连</td>
+</tr>
+</tbody>
+</table>
+<h3 id="73-申请步骤">7.3 申请步骤</h3>
+<p>无论如何，请永远以官方页面为准，本条目可能过时</p>
+<h4 id="731-进入申请页面">7.3.1 进入申请页面</h4>
+<ul>
+<li>直接访问 → <a href="https://github.com/settings/education/benefits">https://github.com/settings/education/benefits</a></li>
+<li>GitHub首页 → 头像 → Settings → 左侧 Education → Education benefits</li>
+</ul>
+<h4 id="732-启动申请流程">7.3.2 启动申请流程</h4>
+<ol>
+<li>点击 <strong>&quot;Start an application&quot;</strong></li>
+<li>身份选择：<strong>Student</strong>（学生）</li>
+<li>学校选择：输入学校名称，从下拉列表中选择（支持中文搜索）</li>
+</ol>
+<h4 id="733-身份验证关键">7.3.3 身份验证（关键！）</h4>
+<ol>
+<li>
+<p>拍摄学生证明材料</p>
+<ul>
+<li>注意：光线充足，确保文字清晰可辨</li>
+</ul>
+</li>
+<li>
+<p>位置验证</p>
+<ul>
+<li>允许浏览器获取位置信息</li>
+<li>建议在学校范围内操作，并使用校园网</li>
+</ul>
+</li>
+</ol>
+<h4 id="734-提交与等待审核">7.3.4 提交与等待审核</h4>
+<ul>
+<li>点击 <strong>&quot;Submit application&quot;</strong> 提交</li>
+<li>审核时间：
+<ul>
+<li>机器审核：通常5分钟~24小时</li>
+<li>人工复核：1-3个工作日</li>
+</ul>
+</li>
+<li>审核结果将通过邮件通知</li>
+</ul>
+<h4 id="735-激活福利关键">7.3.5 激活福利（关键！）</h4>
+<ul>
+<li>
+<p>1.访问：<br>
+<a href="https://education.github.com/pack">https://education.github.com/pack</a></p>
+</li>
+<li>
+<p>2.领取 Copilot Pro：</p>
+<ul>
+<li>找到 &quot;GitHub Copilot&quot; 卡片</li>
+<li>点击 &quot;Get benefit&quot; → &quot;Activate Copilot Pro&quot;</li>
+<li>按提示确认策略设置</li>
+</ul>
+</li>
+<li>
+<p>3.领取其他福利（按需）：</p>
+<ul>
+<li>JetBrains：跳转官网用学生邮箱注册</li>
+<li>Azure：需绑定信用卡（学生额度内免费）</li>
+<li>域名：通过 Namecheap 等合作商领取</li>
+</ul>
+</li>
+</ul>
+<p><strong>提示</strong>：一些福利需逐个领取，建议全部激活，避免遗漏</p>
+<h3 id="74-vs-code-中配置-github-copilot">7.4 VS Code 中配置 GitHub Copilot</h3>
+<h4 id="741-安装与授权">7.4.1 安装与授权</h4>
+<ol>
+<li>打开 VS Code → 扩展商店（<code>Ctrl+Shift+X</code>）</li>
+<li>搜索 <strong>&quot;GitHub Copilot&quot;</strong> → 安装官方插件</li>
+<li>右下角弹出登录提示 → 使用已认证学生账号授权</li>
+<li>状态栏出现 ✨ Copilot 图标 = 配置成功</li>
+</ol>
+<h4 id="742-核心功能速览">7.4.2 核心功能速览</h4>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>快捷键</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>智能代码补全</td>
+<td>输入时自动触发</td>
+<td>写函数、注释、测试用例</td>
+</tr>
+<tr>
+<td>内联聊天</td>
+<td><code>Ctrl+I</code> (Win) / <code>Cmd+I</code> (Mac)</td>
+<td>&quot;帮我写一个快速排序&quot;</td>
+</tr>
+<tr>
+<td>侧边栏对话</td>
+<td><code>Ctrl+Alt+I</code> / 点击侧边栏图标</td>
+<td>多轮调试、代码解释</td>
+</tr>
+<tr>
+<td>修复建议</td>
+<td>选中报错代码 → 点击 💡</td>
+<td>自动分析错误并给出修复方案</td>
+</tr>
+<tr>
+<td>生成提交信息</td>
+<td>Source Control → ✨ 图标</td>
+<td>自动生成规范的 Git commit message</td>
+</tr>
+</tbody>
+</table>
+<h4 id="743-示例">7.4.3 示例</h4>
+<pre class="hljs"><code><div><span class="hljs-comment"># 场景：写一个数据处理函数</span>
+<span class="hljs-comment"># 你输入：</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">analyze_sales_data</span>(<span class="hljs-params">df, 
+<span class="hljs-comment"># 默认按下tab，Copilot 自动补全：</span>
+<span class="hljs-keyword">def</span> analyze_sales_data(<span class="hljs-params">df, 
+                       group_by: <span class="hljs-built_in">str</span> = <span class="hljs-string">&#x27;region&#x27;</span>, 
+                       metrics: <span class="hljs-built_in">list</span> = [<span class="hljs-string">&#x27;revenue&#x27;</span>, <span class="hljs-string">&#x27;units&#x27;</span>]</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;
+    Analyze sales data by grouping and calculating key metrics.
+    
+    Args:
+        df: pandas DataFrame with sales records
+        group_by: column name to group by (default: &#x27;region&#x27;)
+        metrics: list of metrics to calculate
+        
+    Returns:
+        Aggregated DataFrame with summary statistics
+    &quot;&quot;&quot;</span>
+    <span class="hljs-comment"># Contiune...</span>
+</span></div></code></pre>
+<p><strong>进阶</strong>：在代码注释中用自然语言描述需求，Copilot 会根据上下文生成更精准的代码</p>
+<h3 id="75-福利续期与常见问题">7.5 福利续期与常见问题</h3>
+<h4 id="751-如何续期">7.5.1 如何续期？</h4>
+<ol>
+<li>到期前 30 天，访问 <a href="https://github.com/settings/education">https://github.com/settings/education</a></li>
+<li>点击 <strong>&quot;Renew your student benefits&quot;</strong></li>
+<li>重新上传最新的学生证明（如新学期学生证/学信网报告）</li>
+<li>审核通过后，权益自动延长 2 年</li>
+</ol>
+<h4 id="752-常见问题解答">7.5.2 常见问题解答</h4>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>解答</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>毕业/休学后还能用吗？</strong></td>
+<td>权益持续到认证有效期结束（通常按毕业日期计算），到期后自动降级为免费版</td>
+</tr>
+<tr>
+<td><strong>可以不用学校邮箱吗？</strong></td>
+<td>不行，没有学校邮箱则拒绝受理</td>
+</tr>
+<tr>
+<td><strong>一人能申请多个账号吗？</strong></td>
+<td>不建议。同一身份信息重复申请可能导致封禁，建议专注维护主账号</td>
+</tr>
+<tr>
+<td><strong>国内网络访问慢怎么办？</strong></td>
+<td>• 使用校园网直连<br> • 配置 GitHub 加速镜像（仅用于克隆，认证需直连）</td>
+</tr>
+<tr>
+<td><strong>学生包和 Copilot Free 有什么区别？</strong></td>
+<td>学生包享受 Copilot Pro 全功能；<br>免费版有使用次数限制，且无高级模型访问权限</td>
+</tr>
+</tbody>
+</table>
+<h4 id="753-其他免费低价学生工具">7.5.3 其他免费/低价学生工具</h4>
+<p>不只是 GitHub，其它厂商也提供了针对学生的免费工具，这里仅列举几例</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>学生优惠</th>
+<th>特点</th>
+<th>申请链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Codeium</strong></td>
+<td>个人版永久免费</td>
+<td>支持50+语言，响应快，隐私友好</td>
+<td><a href="https://codeium.com">codeium.com</a></td>
+</tr>
+<tr>
+<td><strong>Cursor</strong></td>
+<td>免费版可用</td>
+<td>AI 原生编辑器，支持对话式编程</td>
+<td><a href="https://cursor.com">cursor.com</a></td>
+</tr>
+<tr>
+<td><strong>Trae（字节）</strong></td>
+<td>国内免费</td>
+<td>集成 Claude 3.7/GPT-4o，中文优化</td>
+<td><a href="https://trae.cn">trae.cn</a></td>
+</tr>
+<tr>
+<td><strong>JetBrains 学生授权</strong></td>
+<td>直接申请</td>
+<td>无需通过 GitHub，凭学生证单独申请</td>
+<td><a href="https://www.jetbrains.com/community/education">jb.gg/student</a></td>
+</tr>
+<tr>
+<td><strong>阿里云/腾讯云学生机</strong></td>
+<td>9.9~38元/年</td>
+<td>云服务器 + 开发环境，适合部署实践</td>
+<td>各云官网&quot;校园计划&quot;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>建议</strong>：优先申请 GitHub 学生包（福利最全），同时注册 1-2 个备用工具应对网络或审核问题</p>
+<h3 id="76-提醒">7.6 提醒</h3>
+<p>使用 AI 辅助工具时，请遵守以下原则：</p>
+<ol>
+<li><strong>理解而非复制</strong>：对 Copilot 生成的代码，务必理解其逻辑后再使用</li>
+<li><strong>标注来源</strong>：课程作业/论文中若使用 AI 生成代码，按学校要求注明</li>
+<li><strong>独立完成核心逻辑</strong>：关键算法、业务逻辑自行实现，AI 仅作辅助</li>
+<li><strong>遵守课程政策</strong>：部分课程/项目可能限制 AI 工具使用，请注意你的授课教师/直接负责人对 AI 使用的限制或要求</li>
+</ol>
+<p><strong>让 AI 成为你，而不是替代你</strong></p>
+<hr>
+<div style="page-break-before: always;"></div>
+<h2 id="8-更多学习资源"><strong>8 更多学习资源</strong></h2>
+<h3 id="81-基础入门">8.1 基础入门</h3>
+<table>
+<thead>
+<tr>
+<th>资源</th>
+<th>类型</th>
+<th>链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Code Academy - Intro to ChatGPT</strong></td>
+<td>交互式课程</td>
+<td><a href="https://www.codecademy.com/learn/intro-to-chatgpt">codecademy.com/learn/intro-to-chatgpt</a></td>
+</tr>
+<tr>
+<td><strong>LabLab.AI - OpenAI ChatGPT</strong></td>
+<td>分步指南/案例</td>
+<td><a href="https://lablab.ai/tech/openai/chatgpt">lablab.ai/tech/openai/chatgpt</a></td>
+</tr>
+<tr>
+<td><strong>freeCodeCamp - Prompt Engineering</strong></td>
+<td>提示词分类教程</td>
+<td><a href="https://www.freecodecamp.org/news/how-to-communicate-with-ai-tools-prompt-engineering">freecodecamp.org/news/how-to-communicate-with-ai-tools-prompt-engineering</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="82-提示词工程">8.2 提示词工程</h3>
+<table>
+<thead>
+<tr>
+<th>资源</th>
+<th>说明</th>
+<th>链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GitHub - Awesome ChatGPT Prompts</strong></td>
+<td>社区维护的高质量提示词集合</td>
+<td><a href="https://github.com/f/awesome-chatgpt-prompts">github.com/f/awesome-chatgpt-prompts</a></td>
+</tr>
+<tr>
+<td><strong>ChatGPT Prompts for Data Science</strong></td>
+<td>数据科学专用提示词</td>
+<td><a href="https://github.com/travistangvh/ChatGPT-Data-Science-Prompts">github.com/travistangvh/ChatGPT-Data-Science-Prompts</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="83-高级开发tools--mcp--agent--skills--harness">8.3 高级开发（Tools / MCP / Agent / Skills / Harness）</h3>
+<table>
+<thead>
+<tr>
+<th>资源</th>
+<th>类型</th>
+<th>链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MCP官方文档</strong></td>
+<td>协议规范 + 示例代码</td>
+<td><a href="https://modelcontextprotocol.io">modelcontextprotocol.io</a></td>
+</tr>
+<tr>
+<td><strong>LangChain Documentation</strong></td>
+<td>Agent开发权威教程</td>
+<td><a href="https://python.langchain.com">python.langchain.com</a></td>
+</tr>
+<tr>
+<td><strong>Anthropic Skills Guide</strong></td>
+<td>Agent Skill设计最佳实践</td>
+<td><a href="https://docs.anthropic.com/en/docs/build-with-claude/agent-skills">docs.anthropic.com/en/docs/build-with-claude/agent-skills</a></td>
+</tr>
+<tr>
+<td><strong>Awesome MCP Servers</strong></td>
+<td>开源MCP服务器集合</td>
+<td><a href="https://github.com/punkpeye/awesome-mcp-servers">github.com/punkpeye/awesome-mcp-servers</a></td>
+</tr>
+<tr>
+<td><strong>Jimmy Song - AI应用开发框架</strong></td>
+<td>中文框架选型指南</td>
+<td><a href="https://jimmysong.io/zh/book/ai-native-whitepaper/03-development-frameworks">jimmysong.io/zh/book/ai-native-whitepaper/03-development-frameworks</a></td>
+</tr>
+<tr>
+<td><strong>Microsoft AutoGen Docs</strong></td>
+<td>多智能体协作框架</td>
+<td><a href="https://microsoft.github.io/autogen/stable/">microsoft.github.io/autogen</a></td>
+</tr>
+<tr>
+<td><strong>Anthropic官方博文</strong></td>
+<td>Harness设计原理+案例</td>
+<td><a href="https://www.anthropic.com/engineering/harness-design">anthropic.com/engineering/harness-design</a></td>
+</tr>
+<tr>
+<td><strong>Deepwiki</strong></td>
+<td>社区提供的丰富文档</td>
+<td><a href="https://deepwiki.com/">deepwiki.com</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="84-学习建议">8.4 学习建议</h3>
+<p><strong>MCP、Agent、Skills 等领域发展迅速，建议关注下列高质量博客/社区获取最新进展：</strong></p>
+<ul>
+<li>Anthropic官方博客（MCP &amp; Skills更新）</li>
+<li>LangChain / LlamaIndex GitHub Releases</li>
+<li>Hugging Face Agent相关Space</li>
+<li>国内：智源研究院、ModelScope社区的技术分享</li>
+</ul>
+<hr>
+<div style="page-break-before: always;"></div>
+<h2 id="9-补充"><strong>9 补充</strong></h2>
+<p><strong>一些资源</strong>：</p>
+<ul>
+<li>GitHub 学生认证入口：<a href="https://github.com/education">github.com/education</a></li>
+<li>Copilot 学生权益说明：<a href="https://docs.github.com/zh/copilot/how-tos/manage-your-account/free-access-with-copilot-student">docs.github.com/zh/copilot/.../free-access-with-copilot-student</a></li>
+<li>清华大学学生科协教程：<a href="https://thuasta.org/docs/technical_articles/useful_skills/2025-09-19/">thuasta.org/docs/.../github-copilot</a></li>
+<li>腾讯云详细图文指南：<a href="https://cloud.tencent.com/developer/article/2638999">cloud.tencent.com/developer/article/2638999</a></li>
+</ul>
+<p><strong>提醒</strong>：大部分生产力工具或者服务提供商都提供了针对受教育者 <strong>（尤其是大学生）</strong> 的免费优惠，记得保持关注，并尽可能利用自己的身份获取这些资源。在脱离本科阶段之后很难广泛地免费获取这些资源了<br>
+<img src="各位一定要用好自己的大学生身份和学生邮箱.png" alt="alt text"></p>
+
+</body>
+</html>
