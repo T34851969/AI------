@@ -272,7 +272,7 @@
 
 ## **5 Agent、MCP、 Skill 与 Harness**
 
-AI不断发展，简单的问答已不能满足复杂的生产级需求，**智能体（Agent）** 成为生产生活环节中AI应用的一个重要方向。本章节简要介绍构建高级AI应用的核心技术栈。
+AI 不断发展，简单的问答已不能满足复杂的生产级需求，**智能体（Agent）** 成为生产生活环节中 AI 应用的一个重要方向。本章节简要介绍构建高级 AI 应用的核心技术栈。
 
 ### 5.1 Agent（智能体）
 
@@ -835,8 +835,7 @@ flowchart TD
 
 - 不要把网关的服务端口（Port **18789**）暴露在公网，尤其是暴露在 **IPv4** 公网，全世界的 IPv4 地址只有四十亿个左右，每天每个地址都可能被扫描几遍，因此最好只在局域网尝鲜使用。若确有访问需求，应该使用专门的工具代理你的流量，比如 **Cloudflare Tunnel**；如果你的数据太过敏感，放弃远程访问。
 - OpenClaw 支持插件，其形式是 Agent Skills。这里是**提示词注入**的高危区，因此，在你下载任何 Skills 之前，请先确认作者的资质，并在下载后**手动**验证内容。比如，你使用 Linux，请审查 `~/.openclaw/skills//SKILL.md` ，确认无恶意指令（如`curl`、`bash`）或者看起来很奇怪的诱导性提示词。
-- 十分不建议在主力物理机上以任何形式部署 OpenClaw，即使你使用 Docker，[CVE-2026-24763](https://nvd.nist.gov/vuln/detail/CVE-2026-24763
-) 已经被证实，OpenClaw 在 Docker 沙箱中执行命令时不会安全处理 `PATH` 环境变量。攻击者通过注入恶意 `PATH` 值（如 `PATH=/tmp:/bin;id;`），可突破权限，在容器内执行任意 Shell 命令。条件允许的情况下，请你购买或布置另一台不重要的、不涉密的、廉价的**物理机器**部署这个网关，并布置好必要的防火墙。
+- 十分不建议在你常用的物理机上，以任何形式部署 OpenClaw，即使你使用 Docker，[CVE-2026-24763](https://nvd.nist.gov/vuln/detail/CVE-2026-24763) 已经被证实，OpenClaw 在 Docker 沙箱中执行命令时不会安全处理 `PATH` 环境变量。攻击者通过注入恶意 `PATH` 值（如 `PATH=/tmp:/bin;id;`），可突破权限，在容器内执行任意 Shell 命令。条件允许的情况下，请另行购买或布置一台不重要的、不涉密的、廉价的**物理机器**部署这个网关，并布置好必要的防火墙。
 
 **企业报告：**
 （摘录自 <https://www.qianxin.com/threat/reportdetail?report_id=345> ）
@@ -1016,7 +1015,7 @@ def analyze_sales_data(df,
 | ----------------------- | -------------- | --------------------------------- | -------------------------------------------------------------- |
 | **Codeium**             | 个人版永久免费 | 支持50+语言，响应快，隐私友好     | [codeium.com](https://codeium.com)                             |
 | **Cursor**              | 免费版可用     | AI 原生编辑器，支持对话式编程     | [cursor.com](https://cursor.com)                               |
-| **Trae（字节）**        | 国内免费       | 集成 GPT-4o，中文优化  | [trae.cn](https://trae.cn)                                     |
+| **Trae（字节）**        | 国内免费       | 集成 GPT-4o，中文优化             | [trae.cn](https://trae.cn)                                     |
 | **JetBrains 学生授权**  | 直接申请       | 无需通过 GitHub，凭学生证单独申请 | [jb.gg/student](https://www.jetbrains.com/community/education) |
 | **阿里云/腾讯云学生机** | 9.9~38元/年    | 云服务器 + 开发环境，适合部署实践 | 各云官网"校园计划"                                             |
 
