@@ -154,7 +154,7 @@
 
 **链接**：<https://www.cssn.cn/skgz/bwyc/202410/t20241012_5790396.shtml>
 
-![alt text](image.png)
+![alt text](src/image.png)
 
 ---
 <div style="page-break-before: always;"></div>
@@ -1090,4 +1090,4 @@ def analyze_sales_data(df,
 - 腾讯云详细图文指南：[cloud.tencent.com/developer/article/2638999](https://cloud.tencent.com/developer/article/2638999)
 
 **提醒**：大部分生产力工具或者服务提供商都提供了针对受教育者 **（尤其是大学生）** 的免费优惠，记得保持关注，并尽可能利用自己的身份获取这些资源。在脱离本科阶段之后很难广泛地免费获取这些资源了
-![alt text](各位一定要用好自己的大学生身份和学生邮箱.png)
+![alt text](src/各位一定要用好自己的大学生身份和学生邮箱.png)
